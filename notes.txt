@@ -1,0 +1,12 @@
+Building a Card.
+
+Card Properties
+Value: 0 - 14 (0 = Major Arcana, 1-10 = Number Card, 11-14 = Face Card
+Suit: a string ('Suns', 'Chiefs', 'Swords', 'Gourds' etc.)
+Description: based on suit, perhaps leverageing Tracery
+Base Symbol: a node based on the card's suit (this node represents a shape that will be repeated in each major card slot),
+Slots: number of slots based on card value (face cards and Major get 1 slot)
+Connectors: nodes that connect slots
+Elaborations (Decorations): minor slots that do not use the base symbol and are generally smaller.
+
+A card is made of a number of nodes. Nodes should be placed semi-symmetrically (repeated along either x-axis, y-axis or both)
