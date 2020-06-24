@@ -158,11 +158,6 @@ function draw() {
   });
 }
 
-// function mouseClicked() {
-//   print("saved svg");
-//   save("soul_gen.svg"); // give file name
-// }
-
 function saveImage() {
   print("saved svg");
   save("soul_gen.svg"); // give file name
@@ -172,4 +167,19 @@ function regenerate() {
   let el = document.getElementById('seed')
   seed = parseInt(el.value);
   redraw();
+}
+
+function keyPressed() {
+  let newSeed = seed;
+  if (keyCode === RIGHT_ARROW) {
+    newSeed += 1;
+  } else if (keyCode === LEFT_ARROW) {
+    newSeed -= 1;
+  }
+  if (newSeed !== seed) {
+    seed = newSeed;
+    let el = document.getElementById('seed')
+    el.value = seed;
+    redraw();
+  }
 }

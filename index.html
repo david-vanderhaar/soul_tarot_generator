@@ -24,7 +24,7 @@
     <button onclick="saveImage()">Save</button>
     <button onclick="regenerate()">Regenerate</button>
     <div>Seed</div>
-    <input id="seed" type="number" value="0">
+    <input onchange="regenerate()" id="seed" type="number" value="0">
 </body>
 <style>
   .p5Canvas {
