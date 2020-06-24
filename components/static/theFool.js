@@ -35,21 +35,33 @@ const theFool = ({
   beam({
     centerX: centerX,
     centerY: centerY,
-    diameterStart: 0,
-    diameterEnd: 180 * scaleOption,
+    diameterStart: 40,
+    diameterEnd: 210 * scaleOption,
     layerCount: 1,
     lineCount: 7,
     lineGap: 0,
     rotationStep: radians(0),
-    rotationOffset: radians(283),
+    rotationOffset: radians(308),
+    circumference: radians(120),
+  })
+  ripple({
+    centerX: centerX,
+    centerY: centerY + (20 * scaleOption),
+    diameterStart: 150 * scaleOption,
+    diameterEnd: 180 * scaleOption,
+    layerCount: 1,
+    segmentCount: 1,
+    segmentGutter: radians(0),
+    rotationStep: radians(0),
+    rotationOffset: radians(270),
     circumference: radians(180),
   })
   ripple({
     centerX: centerX,
-    centerY: centerY,
+    centerY: centerY + (30 * scaleOption),
     diameterStart: 150 * scaleOption,
     diameterEnd: 180 * scaleOption,
-    layerCount: 2,
+    layerCount: 1,
     segmentCount: 1,
     segmentGutter: radians(0),
     rotationStep: radians(0),
@@ -88,16 +100,16 @@ const theFool = ({
       fill(theme.fillColor);
       circle(x, y, diameter)
       noFill();
-      circle(x, y, diameter + 6)
+      circle(x, y, diameter + (6 * scaleOption))
     },
   });
   ripple({
     centerX: centerX,
-    centerY: centerY,
-    diameterStart: 340 * scaleOption,
-    diameterEnd: 340 * scaleOption,
-    layerCount: 2,
-    segmentCount: 100,
+    centerY: centerY + (10 * scaleOption),
+    diameterStart: 320 * scaleOption,
+    diameterEnd: 320 * scaleOption,
+    layerCount: 1,
+    segmentCount: 25,
     segmentGutter: radians(1),
     rotationStep: radians(0),
     rotationOffset: radians(95),
@@ -108,11 +120,34 @@ const theFool = ({
     centerY: centerY,
     diameterStart: 320 * scaleOption,
     diameterEnd: 320 * scaleOption,
-    layerCount: 2,
-    segmentCount: 25,
+    layerCount: 1,
+    segmentCount: 100,
     segmentGutter: radians(1),
     rotationStep: radians(0),
     rotationOffset: radians(95),
     circumference: radians(180),
+  })
+  ripple({
+    centerX: centerX,
+    centerY: centerY + (150 * scaleOption),
+    diameterStart: 0 * scaleOption,
+    diameterEnd: 40 * scaleOption,
+    layerCount: 5,
+    segmentCount: 1,
+    segmentGutter: radians(0),
+    rotationStep: radians(0),
+    rotationOffset: radians(0),
+  })
+  beam({
+    centerX: centerX,
+    centerY: centerY + (150 * scaleOption),
+    diameterStart: 40,
+    diameterEnd: 210 * scaleOption,
+    layerCount: 10,
+    lineCount: 3,
+    lineGap: 10,
+    rotationStep: radians(0),
+    rotationOffset: radians(-13),
+    circumference: radians(40),
   })
 }

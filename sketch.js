@@ -69,14 +69,15 @@ function inverseTheme(theme) {
 
 let theme = THEME.soul;
 // theme = inverseTheme(theme);
-
+let seed = 0;
 function setup() {
   createCanvas(WIDTH, HEIGHT, SVG);
-  background(230);
   stroke(theme.strokeColor);
   rectMode(CENTER)
   frameRate(30);
   strokeWeight(1)
+  noLoop();
+  background(230);
   card({
     x: centerX,
     y: centerY,
@@ -85,16 +86,33 @@ function setup() {
     bgColor: theme.cardColor,
     strokeColor: theme.strokeColor
   });
-  theFool({centerX, centerY, theme, scaleOption: 1});
+  // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
-  // createSun({
-  //   x: centerX, 
-  //   y: centerY, 
-  //   maxDiameter: 500,
-  //   layerCount: 5,
-  //   detailModifier: () => .2,
-  //   theme,
-  // });
+  noiseSeed(seed)
+  createSun({
+    x: centerX, 
+    y: centerY - 250, 
+    maxDiameter: 100,
+    layerCount: 5,
+    detailModifier: () => .2,
+    theme,
+  });
+  createSun({
+    x: centerX, 
+    y: centerY, 
+    maxDiameter: 300,
+    layerCount: 10,
+    detailModifier: () => .3,
+    theme,
+  });
+  createSun({
+    x: centerX,
+    y: centerY + 250,
+    maxDiameter: 100,
+    layerCount: 5,
+    detailModifier: () => .2,
+    theme,
+  });
   // const cards = Array(10).fill(null).map(() => createCard({value: Math.floor(random(15)), suit: SUIT.SUN, description: ''}));
   // print(cards);
 }
@@ -102,9 +120,56 @@ function setup() {
 function draw() {
   // background(0);
   // angle += 1;
+  background(230);
+  card({
+    x: centerX,
+    y: centerY,
+    w: 540,
+    h: 750,
+    bgColor: theme.cardColor,
+    strokeColor: theme.strokeColor
+  });
+  // theFool({centerX, centerY, theme, scaleOption: 1});
+  // oneOfSun({centerX, centerY, theme, scaleOption: 1});
+  noiseSeed(seed)
+  createSun({
+    x: centerX,
+    y: centerY - 250,
+    maxDiameter: 100,
+    layerCount: 5,
+    detailModifier: () => .2,
+    theme,
+  });
+  createSun({
+    x: centerX,
+    y: centerY,
+    maxDiameter: 300,
+    layerCount: 10,
+    detailModifier: () => .3,
+    theme,
+  });
+  createSun({
+    x: centerX,
+    y: centerY + 250,
+    maxDiameter: 100,
+    layerCount: 5,
+    detailModifier: () => .2,
+    theme,
+  });
 }
 
-function mouseClicked() {
+// function mouseClicked() {
+//   print("saved svg");
+//   save("soul_gen.svg"); // give file name
+// }
+
+function saveImage() {
   print("saved svg");
   save("soul_gen.svg"); // give file name
+}
+
+function regenerate() {
+  let el = document.getElementById('seed')
+  seed = parseInt(el.value);
+  redraw();
 }
