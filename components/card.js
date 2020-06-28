@@ -4,9 +4,9 @@ const card = ({
   w,
   h,
   bgColor,
-  strokeColor
+  strokeColor,
+  padding = 25,
 }) => {
-  const padding = 25
   fill(bgColor);
   stroke(strokeColor)
   rect(x, y, w, h, 20);

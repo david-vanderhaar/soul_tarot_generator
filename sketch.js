@@ -78,84 +78,118 @@ function setup() {
   strokeWeight(1)
   noLoop();
   background(230);
-  card({
-    x: centerX,
-    y: centerY,
-    w: 540,
-    h: 750,
-    bgColor: theme.cardColor,
-    strokeColor: theme.strokeColor
-  });
-  // theFool({centerX, centerY, theme, scaleOption: 1});
-  // oneOfSun({centerX, centerY, theme, scaleOption: 1});
-  noiseSeed(seed)
-  createSun({
-    x: centerX, 
-    y: centerY - 250, 
-    maxDiameter: 100,
-    layerCount: 5,
-    detailModifier: () => .2,
-    theme,
-  });
-  createSun({
-    x: centerX, 
-    y: centerY, 
-    maxDiameter: 300,
-    layerCount: 10,
-    detailModifier: () => .6,
-    theme,
-  });
-  createSun({
-    x: centerX,
-    y: centerY + 250,
-    maxDiameter: 100,
-    layerCount: 5,
-    detailModifier: () => .2,
-    theme,
-  });
-  // const cards = Array(10).fill(null).map(() => createCard({value: Math.floor(random(15)), suit: SUIT.SUN, description: ''}));
-  // print(cards);
+  // card({
+  //   x: centerX,
+  //   y: centerY,
+  //   w: 540,
+  //   h: 750,
+  //   bgColor: theme.cardColor,
+  //   strokeColor: theme.strokeColor
+  // });
+  // // theFool({centerX, centerY, theme, scaleOption: 1});
+  // // oneOfSun({centerX, centerY, theme, scaleOption: 1});
+  // noiseSeed(seed)
+  // createSun({
+  //   x: centerX, 
+  //   y: centerY - 250, 
+  //   maxDiameter: 100,
+  //   layerCount: 5,
+  //   detailModifier: () => .2,
+  //   theme,
+  // });
+  // createSun({
+  //   x: centerX, 
+  //   y: centerY, 
+  //   maxDiameter: 300,
+  //   layerCount: 10,
+  //   detailModifier: () => .6,
+  //   theme,
+  // });
+  // createSun({
+  //   x: centerX,
+  //   y: centerY + 250,
+  //   maxDiameter: 100,
+  //   layerCount: 5,
+  //   detailModifier: () => .2,
+  //   theme,
+  // });
 }
 
 function draw() {
   // background(0);
   // angle += 1;
   background(230);
+  const cardWidth = 540;
+  const cardHeight = 750;
+  const cardPadding = 25;
   card({
     x: centerX,
     y: centerY,
-    w: 540,
-    h: 750,
+    w: cardWidth,
+    h: cardHeight,
     bgColor: theme.cardColor,
-    strokeColor: theme.strokeColor
+    strokeColor: theme.strokeColor,
+    padding: cardPadding,
   });
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   noiseSeed(seed)
-  createSun({
-    x: centerX,
-    y: centerY - 250,
-    maxDiameter: 100,
+  // createSun({
+  //   x: centerX,
+  //   y: centerY - 250,
+  //   maxDiameter: 100,
+  //   layerCount: 5,
+  //   detailModifier: () => .2,
+  //   theme,
+  // });
+  // createSun({
+  //   x: centerX,
+  //   y: centerY,
+  //   maxDiameter: 300,
+  //   layerCount: 10,
+  //   detailModifier: () => .3,
+  //   theme,
+  // });
+  // createSun({
+  //   x: centerX,
+  //   y: centerY + 250,
+  //   maxDiameter: 100,
+  //   layerCount: 5,
+  //   detailModifier: () => .2,
+  //   theme,
+  // });
+
+  const cardStats = createCard({ 
+    // value: Math.floor(random(3)), 
+    // value: 1, 
+    // value: 2, 
+    // value: 3, 
+    // value: 4, 
+    // value: 5, 
+    // value: 6, 
+    // value: 7,
+    // value: 8,
+    // value: 9,
+    value: 10,
+    suit: SUIT.SUN, 
+    description: '' 
+  });
+  const nodeParams = {
     layerCount: 5,
     detailModifier: () => .2,
     theme,
-  });
-  createSun({
-    x: centerX,
-    y: centerY,
-    maxDiameter: 300,
-    layerCount: 10,
-    detailModifier: () => .3,
-    theme,
-  });
-  createSun({
-    x: centerX,
-    y: centerY + 250,
-    maxDiameter: 100,
-    layerCount: 5,
-    detailModifier: () => .2,
-    theme,
-  });
+  };
+  generateCardNodes({
+    cardWidth: cardWidth - (cardPadding * 2),
+    cardHeight,
+    cardX: centerX,
+    cardY: centerY,
+    slotCount: cardStats.slotCount,
+    // slotPadding: 50,
+    slotPadding: 100,
+    nodeParams,
+    createNode: createSun,
+  })
 }
 
 function getSeedValue() {
