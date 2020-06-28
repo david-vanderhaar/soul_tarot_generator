@@ -27,7 +27,7 @@ const createSun = ({
       layerCount: ceil(noise(0) * (20 * detailModifier())),
       lineCount: ceil(noise(0) * (100 * detailModifier())),
       lineGap: 0,
-      segmentCount: ceil(noise(0) * (20 * detailModifier())),
+      segmentCount: ceil(noise(0) * (100 * detailModifier())),
       segmentGutter: radians(noise(0) * 35),
       burstCount: round(10 * detailModifier()),
       stippleCount: round(100 * detailModifier()),

@@ -102,7 +102,7 @@ function setup() {
     y: centerY, 
     maxDiameter: 300,
     layerCount: 10,
-    detailModifier: () => .3,
+    detailModifier: () => .6,
     theme,
   });
   createSun({
@@ -158,18 +158,23 @@ function draw() {
   });
 }
 
+function getSeedValue() {
+  let el = document.getElementById('seed')
+  return parseInt(el.value);
+}
+
 function saveImage() {
-  print("saved svg");
-  save("soul_gen.svg"); // give file name
+  let current_seed = getSeedValue();
+  let filename = current_seed.toString() + '__soul_gen.svg';
+  save(filename); // give file name
 }
 
 function regenerate() {
-  let el = document.getElementById('seed')
-  seed = parseInt(el.value);
+  seed = getSeedValue();
   redraw();
 }
 
-function keyPressed() {
+function seedKeyPressed() {
   let newSeed = seed;
   if (keyCode === RIGHT_ARROW) {
     newSeed += 1;
@@ -182,4 +187,15 @@ function keyPressed() {
     el.value = seed;
     redraw();
   }
+}
+
+function saveKeyPressed() {
+  if (keyCode === ENTER) {
+    saveImage();
+  }
+}
+
+function keyPressed() {
+  seedKeyPressed();
+  saveKeyPressed();
 }
