@@ -70,6 +70,8 @@ function inverseTheme(theme) {
 let theme = THEME.soul;
 // theme = inverseTheme(theme);
 let seed = 0;
+let cardValue = 0;
+
 function setup() {
   createCanvas(WIDTH, HEIGHT, SVG);
   stroke(theme.strokeColor);
@@ -170,7 +172,8 @@ function draw() {
     // value: 7,
     // value: 8,
     // value: 9,
-    value: 10,
+    // value: 10,
+    value: cardValue,
     suit: SUIT.SUN, 
     description: '' 
   });
@@ -185,8 +188,8 @@ function draw() {
     cardX: centerX,
     cardY: centerY,
     slotCount: cardStats.slotCount,
-    // slotPadding: 50,
-    slotPadding: 100,
+    slotPadding: 50,
+    // slotPadding: 100,
     nodeParams,
     createNode: createSun,
   })
@@ -194,6 +197,11 @@ function draw() {
 
 function getSeedValue() {
   let el = document.getElementById('seed')
+  return parseInt(el.value);
+}
+
+function getCardValue() {
+  let el = document.getElementById('card_value')
   return parseInt(el.value);
 }
 
@@ -205,6 +213,7 @@ function saveImage() {
 
 function regenerate() {
   seed = getSeedValue();
+  cardValue = getCardValue();
   redraw();
 }
 
@@ -223,6 +232,21 @@ function seedKeyPressed() {
   }
 }
 
+function cardKeyPressed() {
+  let newCardValue = cardValue;
+  if (keyCode === UP_ARROW) {
+    newCardValue += 1;
+  } else if (keyCode === DOWN_ARROW) {
+    newCardValue -= 1;
+  }
+  if (newCardValue !== cardValue) {
+    cardValue = newCardValue;
+    let el = document.getElementById('card_value')
+    el.value = cardValue;
+    redraw();
+  }
+}
+
 function saveKeyPressed() {
   if (keyCode === ENTER) {
     saveImage();
@@ -231,5 +255,6 @@ function saveKeyPressed() {
 
 function keyPressed() {
   seedKeyPressed();
+  cardKeyPressed();
   saveKeyPressed();
 }

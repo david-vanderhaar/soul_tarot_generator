@@ -98,7 +98,7 @@ const LAYOUTS = {
     {x: 2, y: 0, sizeModifier: 0.20},
     {x: 1, y: 1, sizeModifier: 0.20},
     {x: 0, y: -2, sizeModifier: 0.20},
-    {x: 0, y: 0, sizeModifier: 0.40},
+    {x: 0, y: 0, sizeModifier: 0.20},
     {x: 0, y: 2, sizeModifier: 0.20},
   ],
   10: [
@@ -109,8 +109,8 @@ const LAYOUTS = {
     {x: 2, y: 0, sizeModifier: 0.20},
     {x: 2, y: 1, sizeModifier: 0.20},
     {x: 0, y: -2, sizeModifier: 0.20},
-    {x: 0, y: -1, sizeModifier: 0.20},
-    {x: 0, y: 1, sizeModifier: 0.20},
+    {x: 0, y: -0.75, sizeModifier: 0.20},
+    {x: 0, y: 0.75, sizeModifier: 0.20},
     {x: 0, y: 2, sizeModifier: 0.20},
   ],
 };
@@ -125,18 +125,6 @@ const generateCardNodes = ({
   nodeParams,
   createNode = () => null,
 }) => {
-  // 3 is max nodes along single row or column
-  // const maxAxisCount = 3;
-  // let axisCount = slotCount % (maxAxisCount + 1)
-  
-  // if (axisCount === 0) axisCount = maxAxisCount;
-  // const maxNodeWidth = cardWidth / axisCount;
-  // const maxNodeHeight = cardHeight / axisCount;
-
-  // const nodeWidth = maxNodeWidth - (slotPadding / 2)
-  // const nodeHeight = maxNodeHeight - (slotPadding) / 2
-
-  
   const nodePositions = LAYOUTS[slotCount];
   nodePositions.forEach((pos, i) => {
     const nodeWidth = (cardWidth - (slotPadding)) * pos.sizeModifier;

@@ -33,8 +33,8 @@ const createSun = ({
       stippleCount: round(100 * detailModifier()),
       stippleSize: round(10 * detailModifier()),
       rotationStep: radians(noise(0) * 30),
-      rotationOffset: radians(0),
-      circumference: radians(360),
+      rotationOffset: radians(180),
+      circumference: radians(noise(0) * 360),
       filled: round(noise(0)),
       theme,
     }
