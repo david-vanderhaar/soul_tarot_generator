@@ -161,18 +161,25 @@ function draw() {
   //   theme,
   // });
 
+  dashed({
+    startX: centerX,
+    startY: centerY - 250,
+    endX: centerX,
+    endY: centerY + 250,
+    lineCount: 5,
+  })
+  circle(centerX, centerY - 250, 10)
+  circle(centerX, centerY + 250, 20)
+  curved({
+    startX: centerX,
+    startY: centerY - 250,
+    endX: centerX,
+    endY: centerY + 250,
+    curveStrength: 100,
+    curveType: CURVE_TYPES.E,
+  })
+
   const cardStats = createCard({ 
-    // value: Math.floor(random(3)), 
-    // value: 1, 
-    // value: 2, 
-    // value: 3, 
-    // value: 4, 
-    // value: 5, 
-    // value: 6, 
-    // value: 7,
-    // value: 8,
-    // value: 9,
-    // value: 10,
     value: cardValue,
     suit: SUIT.SUN, 
     description: '' 
