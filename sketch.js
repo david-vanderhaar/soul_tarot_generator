@@ -80,41 +80,6 @@ function setup() {
   strokeWeight(1)
   noLoop();
   background(230);
-  // card({
-  //   x: centerX,
-  //   y: centerY,
-  //   w: 540,
-  //   h: 750,
-  //   bgColor: theme.cardColor,
-  //   strokeColor: theme.strokeColor
-  // });
-  // // theFool({centerX, centerY, theme, scaleOption: 1});
-  // // oneOfSun({centerX, centerY, theme, scaleOption: 1});
-  // noiseSeed(seed)
-  // createSun({
-  //   x: centerX, 
-  //   y: centerY - 250, 
-  //   maxDiameter: 100,
-  //   layerCount: 5,
-  //   detailModifier: () => .2,
-  //   theme,
-  // });
-  // createSun({
-  //   x: centerX, 
-  //   y: centerY, 
-  //   maxDiameter: 300,
-  //   layerCount: 10,
-  //   detailModifier: () => .6,
-  //   theme,
-  // });
-  // createSun({
-  //   x: centerX,
-  //   y: centerY + 250,
-  //   maxDiameter: 100,
-  //   layerCount: 5,
-  //   detailModifier: () => .2,
-  //   theme,
-  // });
 }
 
 function draw() {
@@ -135,49 +100,26 @@ function draw() {
   });
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
+  // threeOfSun({centerX, centerY, theme});
   noiseSeed(seed)
-  // createSun({
-  //   x: centerX,
-  //   y: centerY - 250,
-  //   maxDiameter: 100,
-  //   layerCount: 5,
-  //   detailModifier: () => .2,
-  //   theme,
-  // });
-  // createSun({
-  //   x: centerX,
-  //   y: centerY,
-  //   maxDiameter: 300,
-  //   layerCount: 10,
-  //   detailModifier: () => .3,
-  //   theme,
-  // });
-  // createSun({
-  //   x: centerX,
-  //   y: centerY + 250,
-  //   maxDiameter: 100,
-  //   layerCount: 5,
-  //   detailModifier: () => .2,
-  //   theme,
-  // });
 
-  dashed({
-    startX: centerX,
-    startY: centerY - 250,
-    endX: centerX,
-    endY: centerY + 250,
-    lineCount: 5,
-  })
-  circle(centerX, centerY - 250, 10)
-  circle(centerX, centerY + 250, 20)
-  curved({
-    startX: centerX,
-    startY: centerY - 250,
-    endX: centerX,
-    endY: centerY + 250,
-    curveStrength: 100,
-    curveType: CURVE_TYPES.E,
-  })
+  // dashed({
+  //   startX: centerX,
+  //   startY: centerY - 250,
+  //   endX: centerX,
+  //   endY: centerY + 250,
+  //   lineCount: 5,
+  // })
+  // circle(centerX, centerY - 250, 10)
+  // circle(centerX, centerY + 250, 20)
+  // curved({
+  //   startX: centerX,
+  //   startY: centerY - 250,
+  //   endX: centerX,
+  //   endY: centerY + 250,
+  //   curveStrength: 100,
+  //   curveType: CURVE_TYPES.E,
+  // })
 
   const cardStats = createCard({ 
     value: cardValue,

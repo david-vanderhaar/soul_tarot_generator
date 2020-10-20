@@ -1,13 +1,3 @@
-const SUIT = {
-  SUN: 'sun',
-  MOON: 'moon',
-  STAR: 'star',
-  CHIEF: 'chief',
-  GOURD: 'gourd',
-  PIPE: 'pipe',
-  SICKLE: 'sickle',
-};
-
 const createCard = ({
   value,
   suit,

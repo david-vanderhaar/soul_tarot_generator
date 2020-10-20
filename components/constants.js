@@ -1,3 +1,13 @@
+const SUIT = {
+  SUN: 'sun',
+  MOON: 'moon',
+  STAR: 'star',
+  CHIEF: 'chief',
+  GOURD: 'gourd',
+  PIPE: 'pipe',
+  SICKLE: 'sickle',
+};
+
 const CURVE_TYPES = {
   N: {x: 0, y: 1},
   S: {x: 0, y: -1},
