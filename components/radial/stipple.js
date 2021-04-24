@@ -14,8 +14,8 @@ function stipple({
   const angleStep = circumference / stippleCount;
   const diameterStep = (diameterEnd - diameterStart) / layerCount;
   for (let i = 0; i < layerCount; i++) {
-    const newDiameter = diameterEnd - ((i + 1) * diameterStep);
-    const rotation = i * rotationStep + rotationOffset;
+    const newDiameter = diameterEnd - ((i) * diameterStep);
+    const rotation = (i * rotationStep) + rotationOffset;
     for (let j = 0; j < stippleCount; j++) {
       const segmentStart = (j * angleStep) + rotation
       let startX = centerX + (newDiameter / 2) * sin(segmentStart);

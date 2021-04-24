@@ -71,6 +71,8 @@ let theme = THEME.soul;
 // theme = inverseTheme(theme);
 let seed = 0;
 let cardValue = 0;
+let layerCount = 5;
+let detailModifier = .2;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT, SVG);
@@ -127,8 +129,8 @@ function draw() {
     description: '' 
   });
   const nodeParams = {
-    layerCount: 5,
-    detailModifier: () => .2,
+    layerCount,
+    detailModifier: () => detailModifier,
     theme,
   };
   generateCardNodes({
@@ -144,14 +146,10 @@ function draw() {
   })
 }
 
-function getSeedValue() {
-  let el = document.getElementById('seed')
-  return parseInt(el.value);
-}
-
-function getCardValue() {
-  let el = document.getElementById('card_value')
-  return parseInt(el.value);
+function getInputValue(id) {
+  let el = document.getElementById(id)
+  console.log(el);
+  return parseFloat(el.value);
 }
 
 function saveImage() {
@@ -161,8 +159,16 @@ function saveImage() {
 }
 
 function regenerate() {
-  seed = getSeedValue();
-  cardValue = getCardValue();
+  seed = getInputValue('seed');
+  cardValue = getInputValue('card_value');
+  layerCount = getInputValue('layer_count');
+  detailModifier = getInputValue('detail_modifier');
+  console.table({
+    seed,
+    cardValue,
+    layerCount,
+    detailModifier,
+  })
   redraw();
 }
 
