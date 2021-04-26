@@ -69,7 +69,6 @@ function inverseTheme(theme) {
 
 let theme = THEME.soul;
 // theme = inverseTheme(theme);
-let seed = 0;
 let cardValue = 0;
 let layerCount = 5;
 let detailModifier = .2;
@@ -103,6 +102,7 @@ function draw() {
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
+  let seed = getInputValue('seed', parsePhraseAsInt);
   noiseSeed(seed)
 
   // dashed({
@@ -146,20 +146,23 @@ function draw() {
   })
 }
 
-function getInputValue(id) {
+function getInputValue(id, parse = parseFloat) {
   let el = document.getElementById(id)
-  console.log(el);
-  return parseFloat(el.value);
+  return parse(el.value);
+}
+
+const parsePhraseAsInt = (s) => {
+  return s.split('').reduce((acc, curr) => acc + curr.toLowerCase().charCodeAt(0), 0);
 }
 
 function saveImage() {
-  let current_seed = getSeedValue();
+  let current_seed = getInputValue('seed', (val) => val);
   let filename = current_seed.toString() + '__soul_gen.svg';
   save(filename); // give file name
 }
 
 function regenerate() {
-  seed = getInputValue('seed');
+  seed = getInputValue('seed', parsePhraseAsInt);
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');
@@ -209,7 +212,7 @@ function saveKeyPressed() {
 }
 
 function keyPressed() {
-  seedKeyPressed();
-  cardKeyPressed();
-  saveKeyPressed();
+  // seedKeyPressed();
+  // cardKeyPressed();
+  // saveKeyPressed();
 }
