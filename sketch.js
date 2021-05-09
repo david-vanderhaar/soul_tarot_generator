@@ -6,13 +6,13 @@ https://maxwellito.github.io/vivus/
 https://maxwellito.github.io/vivus-instant/
 */
 
-const WIDTH = 898;
-const HEIGHT = 764;
-
+const WIDTH = Math.min(window.innerWidth - 10, 540);
+// const HEIGHT = WIDTH * 1.39;
+// const WIDTH = 898;
+// const HEIGHT = 764;
+const HEIGHT = WIDTH * 1.39;
 const diameter = 50;
 const diameterStep = 10;
-const centerX = (WIDTH / 2);
-const centerY = (HEIGHT / 2);
 
 let angle = 0;
 
@@ -74,7 +74,9 @@ let layerCount = 5;
 let detailModifier = .2;
 
 function setup() {
-  createCanvas(WIDTH, HEIGHT, SVG);
+  const canvas = createCanvas(WIDTH, HEIGHT, SVG);
+  // const canvas = createCanvas(WIDTH, HEIGHT);
+  moveCanvasNodeToWrapper('cardCanvas', 'defaultCanvas0');
   stroke(theme.strokeColor);
   rectMode(CENTER)
   frameRate(30);
@@ -84,12 +86,12 @@ function setup() {
 }
 
 function draw() {
-  // background(0);
-  // angle += 1;
-  background(230);
-  const cardWidth = 540;
-  const cardHeight = 750;
+  const cardWidth = min(WIDTH - 10, 540);
+  const cardHeight = cardWidth * 1.39;
   const cardPadding = 25;
+  const centerX = (WIDTH / 2);
+  // const centerY = (HEIGHT / 2);
+  const centerY = cardHeight / 2;
   card({
     x: centerX,
     y: centerY,
@@ -102,7 +104,8 @@ function draw() {
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
-  let seed = getInputValue('seed', parsePhraseAsInt);
+  // let seed = getInputValue('seed', parsePhraseAsInt);
+  let seed = getInputValue('seed', (val) => val);
   noiseSeed(seed)
 
   // dashed({
@@ -146,6 +149,12 @@ function draw() {
   })
 }
 
+function moveCanvasNodeToWrapper (wrapperId, canvasId) {
+  let canvasWrapper = document.getElementById(wrapperId);
+  let canvas = document.getElementById(canvasId);
+  canvasWrapper.appendChild(canvas);
+}
+
 function getInputValue(id, parse = parseFloat) {
   let el = document.getElementById(id)
   return parse(el.value);
@@ -162,7 +171,8 @@ function saveImage() {
 }
 
 function regenerate() {
-  seed = getInputValue('seed', parsePhraseAsInt);
+  // seed = getInputValue('seed', parsePhraseAsInt);
+  seed = getInputValue('seed', (val) => val);
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');

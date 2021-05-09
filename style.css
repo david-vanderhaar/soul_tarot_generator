@@ -1,7 +1,25 @@
 html, body {
   margin: 0;
   padding: 0;
+  background-color: #e6e6e6;
 }
 canvas {
   display: block;
+}
+
+.page-content {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.mdl-textfield {
+  width: 100px;
+}
+
+#cardCanvas {
+
+}
+
+#cardControls {
+  padding: 12px;
 }

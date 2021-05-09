@@ -9,6 +9,7 @@ const ripple = ({
   rotationStep,
   rotationOffset,
   circumference = radians(360),
+  // circumference,
 }) => {
   const segmentLength = circumference / segmentCount;
   const diameterStep = (diameterEnd - diameterStart) / layerCount;
