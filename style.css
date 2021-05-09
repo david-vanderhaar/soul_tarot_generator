@@ -9,7 +9,8 @@ canvas {
 
 .page-content {
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .mdl-textfield {
@@ -17,9 +18,25 @@ canvas {
 }
 
 #cardCanvas {
-
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 #cardControls {
-  padding: 12px;
+  flex: 3;
+  margin: 0 20px 20px 20px;
+}
+
+#cardControls .mdl-tabs__tab-bar {
+  justify-content: start;
+}
+
+#mobile-card-controls {
+  display: flex;
+  flex: 1;
+}
+
+.control-slider {
+  max-width: 300px;
 }
