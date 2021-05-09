@@ -6,15 +6,11 @@ https://maxwellito.github.io/vivus/
 https://maxwellito.github.io/vivus-instant/
 */
 
+let CANVAS_RENDERER;
 const WIDTH = Math.min(window.innerWidth - 10, 540);
-// const HEIGHT = WIDTH * 1.39;
-// const WIDTH = 898;
-// const HEIGHT = 764;
 const HEIGHT = WIDTH * 1.39;
 const diameter = 50;
 const diameterStep = 10;
-
-let angle = 0;
 
 const THEME = {
   soul: {
@@ -74,8 +70,9 @@ let layerCount = 5;
 let detailModifier = .2;
 
 function setup() {
-  const canvas = createCanvas(WIDTH, HEIGHT, SVG);
-  // const canvas = createCanvas(WIDTH, HEIGHT);
+  // CANVAS_RENDERER = P2D;
+  CANVAS_RENDERER = SVG;
+  const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
   moveCanvasNodeToWrapper('cardCanvas', 'defaultCanvas0');
   stroke(theme.strokeColor);
   rectMode(CENTER)
@@ -86,11 +83,11 @@ function setup() {
 }
 
 function draw() {
+  customClear()
   const cardWidth = min(WIDTH - 10, 540);
   const cardHeight = cardWidth * 1.39;
   const cardPadding = 25;
   const centerX = (WIDTH / 2);
-  // const centerY = (HEIGHT / 2);
   const centerY = cardHeight / 2;
   card({
     x: centerX,
@@ -166,8 +163,8 @@ const parsePhraseAsInt = (s) => {
 
 function saveImage() {
   let current_seed = getInputValue('seed', (val) => val);
-  let filename = current_seed.toString() + '__soul_gen.svg';
-  save(filename); // give file name
+  let filename = current_seed.toString() + '__soul_gen';
+  save(filename, 'svg'); // give file name
 }
 
 function regenerate() {
@@ -221,8 +218,34 @@ function saveKeyPressed() {
   }
 }
 
-function keyPressed() {
-  // seedKeyPressed();
-  // cardKeyPressed();
-  // saveKeyPressed();
+// function keyPressed() {
+//   // seedKeyPressed();
+//   // cardKeyPressed();
+//   // saveKeyPressed();
+// }
+
+function isMobile() {
+  return window.devicePixelRatio > 1;
+}
+
+
+function customClear() {
+  clearP2D();
+  clearSVG();
+}
+
+function clearP2D() {
+  if (CANVAS_RENDERER === P2D) clear();
+}
+
+function clearSVG() {
+  if (CANVAS_RENDERER === SVG) {
+    // const el = querySVG('g')[0];
+    // const node = el.elt;
+    // console.log(el);
+    // console.log(el.elt);
+    // node.childNodes.forEach(element => {
+    //   node.removeChild(element);
+    // });
+  }
 }

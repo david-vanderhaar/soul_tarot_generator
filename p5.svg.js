@@ -233,7 +233,10 @@
      */
     ctx = function(o) {
 
-        var defaultOptions = { width:500, height:500, enableMirroring : false }, options;
+        let tempW = Math.min(window.innerWidth - 10, 540);
+        let tempH = tempW * 1.39;
+        var defaultOptions = { width:tempW, height:tempH, enableMirroring : false }, options;
+        // var defaultOptions = { width:500, height:500, enableMirroring : false }, options;
 
         //keep support for this way of calling C2S: new C2S(width,height)
         if(arguments.length > 1) {
@@ -2158,11 +2161,14 @@ module.exports = function(p5) {
      * @private
      */
     RendererSVG.prototype._withPixelDensity = function(fn) {
-        var pixelDensity = this._pInst.pixelDensity;
         this._pInst.pixelDensity = 1; // 1 is OK for SVG
-        fn.apply(this);
-        this._pInst.pixelDensity = pixelDensity;
     };
+    // RendererSVG.prototype._withPixelDensity = function(fn) {
+    //     var pixelDensity = this._pInst.pixelDensity;
+    //     this._pInst.pixelDensity = 1; // 1 is OK for SVG
+    //     fn.apply(this);
+    //     this._pInst.pixelDensity = pixelDensity;
+    // };
 
     RendererSVG.prototype.background = function() {
         var args = arguments;
