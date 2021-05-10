@@ -12,48 +12,15 @@ const HEIGHT = WIDTH * 1.39;
 const diameter = 50;
 const diameterStep = 10;
 
-const THEME = {
-  soul: {
-    fillColor: '#e4a77b',
-    strokeColor: '#e4a77b',
-    cardColor: 'rgb(24,24,24)',
-  },
-  rose: {
-    fillColor: '#FFBC42',
-    strokeColor: '#FFBC42',
-    cardColor: '#8F2D56',
-  },
-  magma: {
-    fillColor: '#EC6A5C',
-    strokeColor: '#EC6A5C',
-    cardColor: '#3E4348',
-  },
-  poison: {
-    fillColor: '#a5d296',
-    strokeColor: '#a5d296',
-    cardColor: '#54546c',
-  },
-  smog: {
-    fillColor: '#8283a7',
-    strokeColor: '#8283a7',
-    cardColor: '#404146',
-  },
-  terra: {
-    fillColor: '#e77e4d',
-    strokeColor: '#e77e4d',
-    cardColor: '#6f2108',
-  },
-  wolf: {
-    fillColor: '#e5e5e5',
-    strokeColor: '#e5e5e5',
-    cardColor: '#14213d',
-  },
-  bloom: {
-    fillColor: '#e07a5f',
-    strokeColor: '#e07a5f',
-    cardColor: '#f4f1de',
-  },
-};
+var theme = THEME.soul;
+let cardValue = 0;
+let layerCount = 5;
+let detailModifier = .2;
+
+function themer(key) { 
+  theme = THEME[key]
+  redraw();
+}
 
 function inverseTheme(theme) {
   return {
@@ -63,18 +30,46 @@ function inverseTheme(theme) {
   };
 }
 
-let theme = THEME.soul;
-// theme = inverseTheme(theme);
-let cardValue = 0;
-let layerCount = 5;
-let detailModifier = .2;
+function inverseCurrentTheme() {
+  theme = inverseTheme(theme);
+  redraw();
+}
+
+function addPresetButtons () {
+  const container = document.getElementById('presets-container');
+  for (key in THEME) {
+    const value = THEME[key];
+    let preset_element = htmlToElement(
+      `<div class="preset" onclick="themer('${key}')">
+        <button
+          id="theme-${key}"
+          class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+          style="background-color: ${value.cardColor}; color: ${value.strokeColor}; border: ${value.strokeColor} 2px solid;"
+        >
+          <i class="material-icons">auto_awesome</i>
+        </button>
+        <div class="mdl-tooltip mdl-tooltip--large" for="theme-${key}">
+          ${key}
+        </div>
+      </div>`
+    )
+    container.appendChild(preset_element);
+  }
+}
+
+function htmlToElement(html) {
+  let template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
 
 function setup() {
+  addPresetButtons();
   // CANVAS_RENDERER = P2D;
   CANVAS_RENDERER = SVG;
   const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
   moveCanvasNodeToWrapper('cardCanvas', 'defaultCanvas0');
-  stroke(theme.strokeColor);
   rectMode(CENTER)
   frameRate(30);
   strokeWeight(1)
@@ -83,6 +78,7 @@ function setup() {
 }
 
 function draw() {
+  stroke(theme.strokeColor);
   customClear()
   const cardWidth = min(WIDTH - 10, 540);
   const cardHeight = cardWidth * 1.39;
@@ -102,7 +98,10 @@ function draw() {
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
   // let seed = getInputValue('seed', parsePhraseAsInt);
-  let seed = getInputValue('seed', (val) => val);
+  let seed = getInputValue('seed');
+  cardValue = getInputValue('card_value');
+  layerCount = getInputValue('layer_count');
+  detailModifier = getInputValue('detail_modifier');
   noiseSeed(seed)
 
   // dashed({
@@ -162,14 +161,14 @@ const parsePhraseAsInt = (s) => {
 }
 
 function saveImage() {
-  let current_seed = getInputValue('seed', (val) => val);
+  let current_seed = getInputValue('seed');
   let filename = current_seed.toString() + '__soul_gen';
   save(filename, 'svg'); // give file name
 }
 
 function regenerate() {
   // seed = getInputValue('seed', parsePhraseAsInt);
-  seed = getInputValue('seed', (val) => val);
+  seed = getInputValue('seed');
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');
