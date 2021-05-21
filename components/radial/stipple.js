@@ -18,7 +18,7 @@ function stipple({
     const rotation = (i * rotationStep) + rotationOffset;
     for (let j = 0; j < stippleCount; j++) {
       const segmentStart = (j * angleStep) + rotation
-      let startX = centerX + (newDiameter / 2) * sin(segmentStart);
+      let startX = centerX - (newDiameter / 2) * sin(segmentStart);
       let startY = centerY + (newDiameter / 2) * cos(segmentStart);
       node({
         x: startX,

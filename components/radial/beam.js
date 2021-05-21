@@ -13,16 +13,14 @@ const beam = ({
   const angleStep = circumference / lineCount;
   const diameterStep = (diameterEnd - diameterStart) / layerCount;
   for (let i = 0; i < layerCount; i++) {
-    // const newDiameter = diameter + (i * diameterStep);
-    // const nextDiameter = diameter + ((i + 1) * diameterStep - lineGap);
     const newDiameter = diameterStart + ((i) * diameterStep);
     const nextDiameter = diameterStart + ((i + 1) * diameterStep - lineGap);
     const rotation = (i * rotationStep) + rotationOffset;
     for (let j = 0; j < lineCount; j++) {
       const segmentStart = (j * angleStep) + rotation
-      let startX = centerX + (newDiameter / 2) * sin(segmentStart);
+      let startX = centerX - (newDiameter / 2) * sin(segmentStart);
       let startY = centerY + (newDiameter / 2) * cos(segmentStart);
-      let endX = centerX + (nextDiameter / 2) * sin(segmentStart);
+      let endX = centerX - (nextDiameter / 2) * sin(segmentStart);
       let endY = centerY + (nextDiameter / 2) * cos(segmentStart);
       line(startX, startY, endX, endY);
     }

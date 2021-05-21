@@ -23,9 +23,9 @@ const burstCurve = ({
       if (flip) lerpT = 1 - lerpT;
       const finalDiameter = lerp(nextDiameter, newDiameter, lerpT);
       const segmentStart = (j * angleStep) + rotation
-      let startX = centerX + (newDiameter / 2) * sin(segmentStart);
+      let startX = centerX - (newDiameter / 2) * sin(segmentStart);
       let startY = centerY + (newDiameter / 2) * cos(segmentStart);
-      let endX = centerX + (finalDiameter / 2) * sin(segmentStart);
+      let endX = centerX - (finalDiameter / 2) * sin(segmentStart);
       let endY = centerY + (finalDiameter / 2) * cos(segmentStart);
       line(startX, startY, endX, endY);
     }

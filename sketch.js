@@ -66,8 +66,8 @@ function htmlToElement(html) {
 
 function setup() {
   addPresetButtons();
-  // CANVAS_RENDERER = P2D;
-  CANVAS_RENDERER = SVG;
+  CANVAS_RENDERER = P2D;
+  // CANVAS_RENDERER = SVG;
   const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
   moveCanvasNodeToWrapper('cardCanvas', 'defaultCanvas0');
   rectMode(CENTER)

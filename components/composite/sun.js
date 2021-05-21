@@ -14,10 +14,12 @@ const createSun = ({
       stipple,
       burst,
       burstCurve,
-      // disc,
+      disc,
     ];
     const index = floor((noise(i * i) * (layerTypes.length)) % (layerTypes.length))
-    
+    let flipped = false;
+    // if (index === 1) flipped = round(noise(0));
+    // if (i === layerCount - 1 || i === 0) flipped = round(noise(0));
     const layerType = layerTypes[index];
     const params = {
       diameterStart: i * layerDiameter,
@@ -27,13 +29,13 @@ const createSun = ({
       layerCount: ceil(noise(0) * (20 * detailModifier())),
       lineCount: ceil(noise(0) * (50 * detailModifier())),
       lineGap: 0,
-      segmentCount: ceil(noise(0) * (50 * detailModifier())),
+      segmentCount: ceil(noise(0) * (20 * detailModifier())),
       segmentGutter: radians(noise(0) * 35 - (10 * detailModifier())),
       burstCount: round(10 * detailModifier()),
       stippleCount: round(50 * detailModifier()),
       stippleSize: round(10 * detailModifier()),
-      rotationStep: radians(noise(0) * 30),
-      rotationOffset: radians(180),
+      rotationStep: radians(noise(0) * 15),
+      rotationOffset: flipped ? radians(180) : radians(0),
       circumference: radians(noise(0) * 360),
       filled: round(noise(0)),
       theme,

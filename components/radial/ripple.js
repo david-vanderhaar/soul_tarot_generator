@@ -8,18 +8,17 @@ const ripple = ({
   segmentGutter,
   rotationStep,
   rotationOffset,
-  circumference = radians(360),
-  // circumference,
+  circumference,
 }) => {
+  const modifiedRotationOffset = rotationOffset + radians(90); // the p5 arc func start at 3 o' clock 
   const segmentLength = circumference / segmentCount;
   const diameterStep = (diameterEnd - diameterStart) / layerCount;
   for (let i = 0; i < layerCount; i++) {
-    // const newDiameter = diameterEnd - ((i + 1) * diameterStep);
     const newDiameter = diameterEnd - ((i) * diameterStep);
-    const rotation = (i * rotationStep) + rotationOffset;
+    const rotation = ((i * rotationStep) + modifiedRotationOffset);
     for (let j = 0; j < segmentCount; j++) {
-      const segmentStart = (j * segmentLength) + rotation
-      const segmentStop = (j + 1) * segmentLength - segmentGutter + rotation
+      const segmentStart = ((j) * segmentLength) + rotation
+      const segmentStop = ((j + 1) * segmentLength) - segmentGutter + rotation
       arc(centerX, centerY, newDiameter, newDiameter, segmentStart, segmentStop);
     }
   }
