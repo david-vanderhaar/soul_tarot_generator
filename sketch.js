@@ -16,6 +16,7 @@ var theme = THEME.soul;
 let cardValue = 0;
 let layerCount = 5;
 let detailModifier = .2;
+let noiseShift = 0;
 
 function themer(key) { 
   theme = THEME[key]
@@ -102,6 +103,7 @@ function draw() {
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');
+  noiseShift = getInputValue('noise_shift');
   noiseSeed(seed)
 
   // dashed({
@@ -131,6 +133,7 @@ function draw() {
     layerCount,
     detailModifier: () => detailModifier,
     theme,
+    noiseShift,
   };
   generateCardNodes({
     cardWidth: cardWidth - (cardPadding * 2),
@@ -172,12 +175,7 @@ function regenerate() {
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');
-  console.table({
-    seed,
-    cardValue,
-    layerCount,
-    detailModifier,
-  })
+  noiseShift = getInputValue('noise_shift');
   redraw();
 }
 
