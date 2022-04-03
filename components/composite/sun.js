@@ -6,6 +6,7 @@ const createSun = ({
   detailModifier = () => 0,
   theme,
   noiseShift,
+  parameterOverrides = {},
 }) => {
   for (let i = 0; i < layerCount; i++) {
     const noiseValue = noise(noiseShift);
@@ -25,7 +26,7 @@ const createSun = ({
     // if (i === layerCount - 1 || i === 0) flipped = round(noiseValue);
     const layerType = layerTypes[index];
 
-    const params = {
+    const defaultParams = {
       diameterStart: i * layerDiameter,
       diameterEnd: ((i + 1) * layerDiameter),
       centerX: x,
@@ -43,7 +44,8 @@ const createSun = ({
       circumference: radians(noiseValue * 360),
       filled: round(noiseValue),
       theme,
-    }
-    layerType(params);
+    };
+
+    layerType({...defaultParams, ...parameterOverrides});
   }
 }

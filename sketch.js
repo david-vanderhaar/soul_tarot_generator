@@ -134,6 +134,9 @@ function draw() {
     detailModifier: () => detailModifier,
     theme,
     noiseShift,
+    centerX,
+    centerY,
+    scaleOption: 1,
   };
   generateCardNodes({
     cardWidth: cardWidth - (cardPadding * 2),
