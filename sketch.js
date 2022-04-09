@@ -17,6 +17,7 @@ let cardValue = 0;
 let layerCount = 5;
 let detailModifier = .2;
 let noiseShift = 0;
+let circumference = 0;
 
 function themer(key) { 
   theme = THEME[key]
@@ -104,6 +105,7 @@ function draw() {
   layerCount = getInputValue('layer_count');
   detailModifier = getInputValue('detail_modifier');
   noiseShift = getInputValue('noise_shift');
+  circumference = getInputValue('circumference');
   noiseSeed(seed)
 
   // dashed({
@@ -134,6 +136,7 @@ function draw() {
     detailModifier: () => detailModifier,
     theme,
     noiseShift,
+    circumference,
     centerX,
     centerY,
     scaleOption: 1,

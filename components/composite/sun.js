@@ -6,6 +6,7 @@ const createSun = ({
   detailModifier = () => 0,
   theme,
   noiseShift,
+  circumference,
   parameterOverrides = {},
 }) => {
   for (let i = 0; i < layerCount; i++) {
@@ -41,7 +42,8 @@ const createSun = ({
       stippleSize: round(10 * detailModifier()),
       rotationStep: radians(noiseValue * 15),
       rotationOffset: flipped ? radians(180) : radians(0),
-      circumference: radians(noiseValue * 360),
+      circumference: radians(circumference) || radians(360),
+      // circumference: radians(noiseValue * 360),
       filled: round(noiseValue),
       theme,
     };
