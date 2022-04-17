@@ -19,6 +19,70 @@ let detailModifier = .2;
 let noiseShift = 0;
 let circumference = 0;
 
+const INPUT_TYPE = {
+  SLIDER: 0,
+  INTEGER: 1,
+  TEXT: 2,
+}
+
+const PARAMETER_OVERRIDES = {
+  detailModifier: {
+    displayName: 'detail modifier',
+    initialValue: .2,
+    inputType: INPUT_TYPE.SLIDER,
+    min: 0.1,
+    max: 1,
+    step: 0.1,
+    getValue: () => getInputValue('detailModifier'),
+  },
+  noiseShift: {
+    displayName: 'noise shift',
+    initialValue: 0,
+    inputType: INPUT_TYPE.SLIDER,
+    min: 0,
+    max: 100,
+    step: 0.1,
+    getValue: () => getInputValue('noiseShift'),
+  },
+  circumference: {
+    displayName: 'circumference',
+    initialValue: 0,
+    inputType: INPUT_TYPE.SLIDER,
+    min: 0,
+    max: 360,
+    step: 1,
+    getValue: () => getInputValue('circumference'),
+  },
+}
+
+function getOverrideKeyValuesObject() {
+  return Object.entries(PARAMETER_OVERRIDES).reduce((prev, [key, details]) => ({...prev, [key]: details.getValue()}), {})
+}
+
+function createSliderInputElement(inputName, inputDetails) {
+  return htmlToElement(
+    `<div class="control-slider">
+      <div>${inputDetails.displayName}</div>
+      <input class="mdl-slider mdl-js-slider" onchange="regenerate()" id="${inputName}" type="range" value="${inputDetails.initialValue}" min="${inputDetails.min}" max="${inputDetails.max}" step="${inputDetails.step}">
+    </div>`
+  )
+}
+
+function createElementBasedOnType(inputName, inputDetails) {
+  switch (inputDetails.inputType) {
+    case INPUT_TYPE.SLIDER:
+      return createSliderInputElement(inputName, inputDetails);
+    default:
+      return createSliderInputElement(inputName, inputDetails);
+  }
+}
+
+function createParameterOverrideInput(inputName, inputDetails) {
+  const container = document.getElementById('advanced-input-container');
+  const element = createElementBasedOnType(inputName, inputDetails)
+  container.appendChild(element);
+}
+
 function themer(key) { 
   theme = THEME[key]
   redraw();
@@ -68,6 +132,7 @@ function htmlToElement(html) {
 
 function setup() {
   addPresetButtons();
+  Object.entries(PARAMETER_OVERRIDES).forEach(([key, details]) => createParameterOverrideInput(key, details))
   CANVAS_RENDERER = P2D;
   // CANVAS_RENDERER = SVG;
   const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
@@ -103,9 +168,6 @@ function draw() {
   let seed = getInputValue('seed');
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
-  detailModifier = getInputValue('detail_modifier');
-  noiseShift = getInputValue('noise_shift');
-  circumference = getInputValue('circumference');
   noiseSeed(seed)
 
   // dashed({
@@ -133,13 +195,11 @@ function draw() {
   });
   const nodeParams = {
     layerCount,
-    detailModifier: () => detailModifier,
     theme,
-    noiseShift,
-    circumference,
     centerX,
     centerY,
     scaleOption: 1,
+    ...getOverrideKeyValuesObject(),
   };
   generateCardNodes({
     cardWidth: cardWidth - (cardPadding * 2),
@@ -180,8 +240,6 @@ function regenerate() {
   seed = getInputValue('seed');
   cardValue = getInputValue('card_value');
   layerCount = getInputValue('layer_count');
-  detailModifier = getInputValue('detail_modifier');
-  noiseShift = getInputValue('noise_shift');
   redraw();
 }
 

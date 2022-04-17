@@ -9,7 +9,7 @@ const threeOfSun = ({
     y: centerY - 250,
     maxDiameter: 100,
     layerCount: 5,
-    detailModifier: () => .2,
+    detailModifier: .2,
     theme,
   });
   createSun({
@@ -17,7 +17,7 @@ const threeOfSun = ({
     y: centerY,
     maxDiameter: 300,
     layerCount: 10,
-    detailModifier: () => .3,
+    detailModifier: .3,
     theme,
   });
   createSun({
@@ -25,7 +25,7 @@ const threeOfSun = ({
     y: centerY + 250,
     maxDiameter: 100,
     layerCount: 5,
-    detailModifier: () => .2,
+    detailModifier: .2,
     theme,
   });
 }
