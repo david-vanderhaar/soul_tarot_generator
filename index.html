@@ -62,25 +62,11 @@
             <div style="border-top: 5px solid #aaa" class="mdl-navigation mdl-layout--small-screen-only"></div>
             <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
               <div class="mdl-tabs__tab-bar">
-                <a href="#first-panel" class="mdl-tabs__tab is-active">Control</a>
+                <a href="#controls" class="mdl-tabs__tab is-active">Control</a>
                 <a href="#second-panel" class="mdl-tabs__tab">Color</a>
               </div>
-              <div class="mdl-tabs__panel is-active" id="first-panel">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" onchange="regenerate()" id="seed" type="number" value="777">
-                  <label class="mdl-textfield__label" for="seed">Seed</label>
-                  <span class="mdl-textfield__error">Input is not a number!</span>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" onchange="regenerate()" id="card_value" type="number" min="1" max="10" value="1">
-                  <label class="mdl-textfield__label" for="card_value">Card Value</label>
-                  <span class="mdl-textfield__error">Input is not a number!</span>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" onchange="regenerate()" id="layer_count" type="number" value="9">
-                  <label class="mdl-textfield__label" for="layer_count">Layers</label>
-                  <span class="mdl-textfield__error">Input is not a number!</span>
-                </div>
+              <div class="mdl-tabs__panel is-active" id="controls">
+                <div id="primary-input-container"></div>
                 <div id="advanced-input-container"></div>
               </div>
               <div class="mdl-tabs__panel" id="second-panel">

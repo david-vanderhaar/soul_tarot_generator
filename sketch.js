@@ -13,11 +13,6 @@ const diameter = 50;
 const diameterStep = 10;
 
 var theme = THEME.soul;
-let cardValue = 0;
-let layerCount = 5;
-let detailModifier = .2;
-let noiseShift = 0;
-let circumference = 0;
 
 const INPUT_TYPE = {
   SLIDER: 0,
@@ -26,7 +21,43 @@ const INPUT_TYPE = {
 }
 
 const PARAMETER_OVERRIDES = {
+  seed: {
+    inputContainerId: 'primary-input-container',
+    displayName: 'Seed',
+    initialValue: 7,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 'none',
+    max: 'none',
+    getValue: () => getInputValue('seed'),
+    // getValue: () => getInputValue('seed', parsePhraseAsInt),
+  },
+  cardValue: {
+    inputContainerId: 'primary-input-container',
+    displayName: 'Card Value',
+    initialValue: 1,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 1,
+    max: 10,
+    getValue: () => getInputValue('cardValue'),
+  },
+  layerCount: {
+    inputContainerId: 'primary-input-container',
+    displayName: 'Layer Count',
+    initialValue: 7,
+    inputType: INPUT_TYPE.INTEGER,
+    getValue: () => getInputValue('layerCount'),
+  },
+  layerMultiplier: {
+    inputContainerId: 'primary-input-container',
+    displayName: 'Layer Multiplier',
+    initialValue: 1,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 1,
+    max: 20,
+    getValue: () => getInputValue('layerMultiplier'),
+  },
   detailModifier: {
+    inputContainerId: 'advanced-input-container',
     displayName: 'detail modifier',
     initialValue: .2,
     inputType: INPUT_TYPE.SLIDER,
@@ -36,6 +67,7 @@ const PARAMETER_OVERRIDES = {
     getValue: () => getInputValue('detailModifier'),
   },
   noiseShift: {
+    inputContainerId: 'advanced-input-container',
     displayName: 'noise shift',
     initialValue: 0,
     inputType: INPUT_TYPE.SLIDER,
@@ -45,6 +77,7 @@ const PARAMETER_OVERRIDES = {
     getValue: () => getInputValue('noiseShift'),
   },
   circumference: {
+    inputContainerId: 'advanced-input-container',
     displayName: 'circumference',
     initialValue: 0,
     inputType: INPUT_TYPE.SLIDER,
@@ -57,6 +90,26 @@ const PARAMETER_OVERRIDES = {
 
 function getOverrideKeyValuesObject() {
   return Object.entries(PARAMETER_OVERRIDES).reduce((prev, [key, details]) => ({...prev, [key]: details.getValue()}), {})
+}
+
+function createTextInputElement(inputName, inputDetails) {
+  return htmlToElement(
+    `<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" onchange="regenerate()" id="${inputName}" type="text" value="${inputDetails.initialValue}">
+      <label class="mdl-textfield__label" for="${inputName}">${inputDetails.displayName}</label>
+      <span class="mdl-textfield__error">Input is not a number!</span>
+    </div>`
+  )
+}
+
+function createIntegerInputElement(inputName, inputDetails) {
+  return htmlToElement(
+    `<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" onchange="regenerate()" id="${inputName}" type="number" min="${inputDetails.min}" max="${inputDetails.max}" value="${inputDetails.initialValue}">
+      <label class="mdl-textfield__label" for="${inputName}">${inputDetails.displayName}</label>
+      <span class="mdl-textfield__error">Input is not a number!</span>
+    </div>`
+  )
 }
 
 function createSliderInputElement(inputName, inputDetails) {
@@ -72,15 +125,23 @@ function createElementBasedOnType(inputName, inputDetails) {
   switch (inputDetails.inputType) {
     case INPUT_TYPE.SLIDER:
       return createSliderInputElement(inputName, inputDetails);
+    case INPUT_TYPE.INTEGER:
+      return createIntegerInputElement(inputName, inputDetails);
+    case INPUT_TYPE.TEXT:
+      return createTextInputElement(inputName, inputDetails);
     default:
       return createSliderInputElement(inputName, inputDetails);
   }
 }
 
 function createParameterOverrideInput(inputName, inputDetails) {
-  const container = document.getElementById('advanced-input-container');
+  const container = document.getElementById(inputDetails.inputContainerId);
   const element = createElementBasedOnType(inputName, inputDetails)
   container.appendChild(element);
+}
+
+function addControlInputs() {
+  Object.entries(PARAMETER_OVERRIDES).forEach(([key, details]) => createParameterOverrideInput(key, details))
 }
 
 function themer(key) { 
@@ -132,7 +193,7 @@ function htmlToElement(html) {
 
 function setup() {
   addPresetButtons();
-  Object.entries(PARAMETER_OVERRIDES).forEach(([key, details]) => createParameterOverrideInput(key, details))
+  addControlInputs();
   CANVAS_RENDERER = P2D;
   // CANVAS_RENDERER = SVG;
   const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
@@ -164,29 +225,9 @@ function draw() {
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
-  // let seed = getInputValue('seed', parsePhraseAsInt);
-  let seed = getInputValue('seed');
-  cardValue = getInputValue('card_value');
-  layerCount = getInputValue('layer_count');
-  noiseSeed(seed)
 
-  // dashed({
-  //   startX: centerX,
-  //   startY: centerY - 250,
-  //   endX: centerX,
-  //   endY: centerY + 250,
-  //   lineCount: 5,
-  // })
-  // circle(centerX, centerY - 250, 10)
-  // circle(centerX, centerY + 250, 20)
-  // curved({
-  //   startX: centerX,
-  //   startY: centerY - 250,
-  //   endX: centerX,
-  //   endY: centerY + 250,
-  //   curveStrength: 100,
-  //   curveType: CURVE_TYPES.E,
-  // })
+  const {seed, cardValue, ...overrideParameters} = getOverrideKeyValuesObject();
+  noiseSeed(seed)
 
   const cardStats = createCard({ 
     value: cardValue,
@@ -194,12 +235,11 @@ function draw() {
     description: '' 
   });
   const nodeParams = {
-    layerCount,
     theme,
     centerX,
     centerY,
     scaleOption: 1,
-    ...getOverrideKeyValuesObject(),
+    ...overrideParameters,
   };
   generateCardNodes({
     cardWidth: cardWidth - (cardPadding * 2),
@@ -207,8 +247,7 @@ function draw() {
     cardX: centerX,
     cardY: centerY,
     slotCount: cardStats.slotCount,
-    slotPadding: 50,
-    // slotPadding: 100,
+    slotPadding: 100,
     nodeParams,
     createNode: createSun,
   })
@@ -237,9 +276,9 @@ function saveImage() {
 
 function regenerate() {
   // seed = getInputValue('seed', parsePhraseAsInt);
-  seed = getInputValue('seed');
-  cardValue = getInputValue('card_value');
-  layerCount = getInputValue('layer_count');
+  // seed = getInputValue('seed');
+  // cardValue = getInputValue('card_value');
+  // layerCount = getInputValue('layer_count');
   redraw();
 }
 
