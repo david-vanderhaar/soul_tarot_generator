@@ -29,6 +29,7 @@
     <script src="components/composite/sun.js"></script>
     <script src="components/utility/crosshairs.js"></script>
     <script src="sketch.js"></script>
+    <script src="urlHelper.js"></script>
   </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -42,6 +43,7 @@
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation">
             <button onclick="saveImage()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Export</button>
+            <button onclick="createAndCopyURL()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Share</button>
           </nav>
         </div>
       </header>
@@ -67,7 +69,10 @@
               </div>
               <div class="mdl-tabs__panel is-active" id="controls">
                 <div id="primary-input-container"></div>
-                <div id="advanced-input-container"></div>
+                <div id="advanced-input-container">
+                  <h6>Advanced</h6>
+                  <hr>
+                </div>
               </div>
               <div class="mdl-tabs__panel" id="second-panel">
                 <div id="presets-container">
@@ -85,6 +90,10 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
           </div>
         </div>
       </main>

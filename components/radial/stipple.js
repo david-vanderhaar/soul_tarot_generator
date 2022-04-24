@@ -9,7 +9,9 @@ function stipple({
   rotationStep,
   rotationOffset,
   circumference = radians(360),
-  node = ({x, y, diameter, layer}) => circle(x, y, diameter),
+  filled = false,
+  node = ({x, y, diameter, layer}) => disc({centerX: x, centerY: y, diameterEnd: diameter, filled}),
+  // node = ({x, y, diameter, layer}) => circle(x, y, diameter),
 }) {
   const angleStep = circumference / stippleCount;
   const diameterStep = (diameterEnd - diameterStart) / layerCount;

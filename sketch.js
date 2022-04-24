@@ -18,13 +18,23 @@ const INPUT_TYPE = {
   SLIDER: 0,
   INTEGER: 1,
   TEXT: 2,
+  TOGGLE: 3,
+}
+
+
+let URL_PARAMETERS = getParametersFromUrl()
+
+function getParametersFromUrl() {
+  if (!!!window.location.search) return {}
+  const urlSearchParams = new URLSearchParams(window.location.search).entries()
+  return Object.fromEntries(urlSearchParams)
 }
 
 const PARAMETER_OVERRIDES = {
   seed: {
     inputContainerId: 'primary-input-container',
     displayName: 'Seed',
-    initialValue: 7,
+    initialValue: URL_PARAMETERS.seed || 8,
     inputType: INPUT_TYPE.INTEGER,
     min: 'none',
     max: 'none',
@@ -34,7 +44,7 @@ const PARAMETER_OVERRIDES = {
   cardValue: {
     inputContainerId: 'primary-input-container',
     displayName: 'Card Value',
-    initialValue: 1,
+    initialValue: URL_PARAMETERS.cardValue || 1,
     inputType: INPUT_TYPE.INTEGER,
     min: 1,
     max: 10,
@@ -43,14 +53,14 @@ const PARAMETER_OVERRIDES = {
   layerCount: {
     inputContainerId: 'primary-input-container',
     displayName: 'Layer Count',
-    initialValue: 7,
+    initialValue: URL_PARAMETERS.layerCount || 7,
     inputType: INPUT_TYPE.INTEGER,
     getValue: () => getInputValue('layerCount'),
   },
   layerMultiplier: {
     inputContainerId: 'primary-input-container',
     displayName: 'Layer Multiplier',
-    initialValue: 1,
+    initialValue: URL_PARAMETERS.layerMultiplier || 1,
     inputType: INPUT_TYPE.INTEGER,
     min: 1,
     max: 20,
@@ -59,7 +69,7 @@ const PARAMETER_OVERRIDES = {
   detailModifier: {
     inputContainerId: 'advanced-input-container',
     displayName: 'detail modifier',
-    initialValue: .2,
+    initialValue: URL_PARAMETERS.detailModifier || .2,
     inputType: INPUT_TYPE.SLIDER,
     min: 0.1,
     max: 1,
@@ -69,7 +79,7 @@ const PARAMETER_OVERRIDES = {
   noiseShift: {
     inputContainerId: 'advanced-input-container',
     displayName: 'noise shift',
-    initialValue: 0,
+    initialValue: URL_PARAMETERS.noiseShift || 0,
     inputType: INPUT_TYPE.SLIDER,
     min: 0,
     max: 100,
@@ -79,17 +89,134 @@ const PARAMETER_OVERRIDES = {
   circumference: {
     inputContainerId: 'advanced-input-container',
     displayName: 'circumference',
-    initialValue: 0,
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.circumference || 0,
     inputType: INPUT_TYPE.SLIDER,
     min: 0,
     max: 360,
     step: 1,
     getValue: () => getInputValue('circumference'),
   },
+  lineCount: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'line count',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.lineCount || 1,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 1,
+    max: 1000,
+    step: 1,
+    getValue: () => getInputValue('lineCount'),
+  },
+  lineGap: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'lineGap',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.lineGap || 0,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 1000,
+    step: 1,
+    getValue: () => getInputValue('lineGap'),
+  },
+  segmentCount: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'segmentCount',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.segmentCount || 20,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 1000,
+    step: 1,
+    getValue: () => getInputValue('segmentCount'),
+  },
+  segmentGutter: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'segmentGutter',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.segmentGutter || 4,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 360,
+    step: 1,
+    getValue: () => getInputValue('segmentGutter'),
+  },
+  burstCount: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'burstCount',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.burstCount || 5,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 1000,
+    step: 1,
+    getValue: () => getInputValue('burstCount'),
+  },
+  stippleCount: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'stippleCount',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.stippleCount || 10,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 1000,
+    step: 1,
+    getValue: () => getInputValue('stippleCount'),
+  },
+  stippleSize: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'stippleSize',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.stippleSize || 10,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 200,
+    step: 1,
+    getValue: () => getInputValue('stippleSize'),
+  },
+  rotationStep: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'rotationStep',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.rotationStep || 0,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 360,
+    step: 1,
+    getValue: () => getInputValue('rotationStep'),
+  },
+  rotationOffset: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'rotationOffset',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.rotationOffset || 0,
+    inputType: INPUT_TYPE.INTEGER,
+    min: 0,
+    max: 360,
+    step: 1,
+    getValue: () => getInputValue('rotationOffset'),
+  },
+  stippleFilled: {
+    inputContainerId: 'advanced-input-container',
+    displayName: 'stipple filled',
+    suits: [SUIT.SUN],
+    initialValue: URL_PARAMETERS.stippleFilled === 'true' || false,
+    inputType: INPUT_TYPE.TOGGLE,
+    getValue: () => getToggleInputValue('stippleFilled'),
+  },
 }
 
 function getOverrideKeyValuesObject() {
   return Object.entries(PARAMETER_OVERRIDES).reduce((prev, [key, details]) => ({...prev, [key]: details.getValue()}), {})
+}
+
+function createToggleInputElement(inputName, inputDetails) {
+  return htmlToElement(
+    `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${inputName}">
+      <input type="checkbox" id="${inputName}" onchange="regenerate()" class="mdl-checkbox__input" ${inputDetails.initialValue && 'checked'}>
+      <span class="mdl-checkbox__label">${inputDetails.displayName}</span>
+    </label>`
+  )
 }
 
 function createTextInputElement(inputName, inputDetails) {
@@ -129,6 +256,8 @@ function createElementBasedOnType(inputName, inputDetails) {
       return createIntegerInputElement(inputName, inputDetails);
     case INPUT_TYPE.TEXT:
       return createTextInputElement(inputName, inputDetails);
+    case INPUT_TYPE.TOGGLE:
+      return createToggleInputElement(inputName, inputDetails);
     default:
       return createSliderInputElement(inputName, inputDetails);
   }
@@ -225,7 +354,6 @@ function draw() {
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
-
   const {seed, cardValue, ...overrideParameters} = getOverrideKeyValuesObject();
   noiseSeed(seed)
 
@@ -262,6 +390,11 @@ function moveCanvasNodeToWrapper (wrapperId, canvasId) {
 function getInputValue(id, parse = parseFloat) {
   let el = document.getElementById(id)
   return parse(el.value);
+}
+
+function getToggleInputValue(id) {
+  let el = document.getElementById(id)
+  return el.checked;
 }
 
 const parsePhraseAsInt = (s) => {

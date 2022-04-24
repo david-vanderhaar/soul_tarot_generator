@@ -58,3 +58,11 @@ canvas {
 .preset__name {
   font-weight: bold;
 }
+
+/* #advanced-input-container > * {
+  display: block;
+} */
+
+#advanced-input-container {
+  max-width: 400px;
+}

@@ -8,7 +8,16 @@ const createSun = ({
   theme,
   noiseShift = 0,
   circumference,
-  parameterOverrides = {},
+  lineCount,
+  lineGap,
+  segmentCount,
+  segmentGutter,
+  burstCount,
+  stippleCount,
+  stippleSize,
+  stippleFilled,
+  rotationStep,
+  rotationOffset,
 }) => {
   for (let i = 0; i < layerCount; i++) {
     const noiseValue = noise(noiseShift);
@@ -28,27 +37,36 @@ const createSun = ({
     // if (i === layerCount - 1 || i === 0) flipped = round(noiseValue);
     const layerType = layerTypes[index];
 
-    const defaultParams = {
+    const params = {
       diameterStart: i * layerDiameter,
       diameterEnd: ((i + 1) * layerDiameter),
       centerX: x,
       centerY: y,
       layerCount: layerMultiplier,
-      lineCount: ceil(noiseValue * (50 * detailModifier)),
-      lineGap: 0,
-      segmentCount: ceil(noiseValue * (20 * detailModifier)),
-      segmentGutter: radians(noiseValue * 35 - (10 * detailModifier)),
-      burstCount: round(10 * detailModifier),
-      stippleCount: round(50 * detailModifier),
-      stippleSize: round(10 * detailModifier),
-      rotationStep: radians(noiseValue * 15),
-      rotationOffset: flipped ? radians(180) : radians(0),
+      lineCount,
+      lineGap,
+      segmentCount,
+      segmentGutter: radians(segmentGutter),
+      burstCount,
+      stippleCount,
+      stippleSize,
+      rotationStep: radians(rotationStep),
+      rotationOffset: radians(rotationOffset),
+      // lineCount: ceil(noiseValue * (50 * detailModifier)),
+      // lineGap: 0,
+      // segmentCount: ceil(noiseValue * (20 * detailModifier)),
+      // segmentGutter: radians(noiseValue * 35 - (10 * detailModifier)),
+      // burstCount: round(10 * detailModifier),
+      // stippleCount: round(50 * detailModifier),
+      // stippleSize: round(10 * detailModifier),
+      // rotationStep: radians(noiseValue * 15),
+      // rotationOffset: flipped ? radians(180) : radians(0),
       circumference: radians(circumference) || radians(360),
-      // circumference: radians(noiseValue * 360),
-      filled: round(noiseValue),
+      filled: stippleFilled,
+      // filled: round(noiseValue),
       theme,
     };
 
-    layerType({...defaultParams, ...parameterOverrides});
+    layerType(params);
   }
 }
