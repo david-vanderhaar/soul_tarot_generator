@@ -19,6 +19,7 @@ const INPUT_TYPE = {
   INTEGER: 1,
   TEXT: 2,
   TOGGLE: 3,
+  SELECT: 4,
 }
 
 
@@ -41,9 +42,17 @@ const PARAMETER_OVERRIDES = {
     getValue: () => getInputValue('seed'),
     // getValue: () => getInputValue('seed', parsePhraseAsInt),
   },
+  cardSuit: {
+    inputContainerId: 'primary-input-container',
+    displayName: 'Suit',
+    initialValue: URL_PARAMETERS.cardSuit || SUIT.SUN,
+    inputType: INPUT_TYPE.SELECT,
+    values: Object.keys(SUIT),
+    getValue: () => getSelectInputValue('cardSuit'),
+  },
   cardValue: {
     inputContainerId: 'primary-input-container',
-    displayName: 'Card Value',
+    displayName: 'Value',
     initialValue: URL_PARAMETERS.cardValue || 1,
     inputType: INPUT_TYPE.INTEGER,
     min: 1,
@@ -210,6 +219,19 @@ function getOverrideKeyValuesObject() {
   return Object.entries(PARAMETER_OVERRIDES).reduce((prev, [key, details]) => ({...prev, [key]: details.getValue()}), {})
 }
 
+function createSelectInputElement(inputName, inputDetails) {
+  return htmlToElement(
+    `<div class="select-input-field">
+      <select class="select-input-field__text" id="${inputName}" onchange="regenerate()">
+        ${inputDetails.values.map((name) => `<option value="${name}" ${inputDetails.initialValue === name ? 'selected' : ''}>${SUIT[name]}</option>`)}
+      </select>
+      <span class="select-input-field__highlight"></span>
+      <span class="select-input-field__bar"></span>
+      <label class="select-input-field__label" for="${inputName}">${inputDetails.displayName}</label>
+    </div>`
+  )
+}
+
 function createToggleInputElement(inputName, inputDetails) {
   return htmlToElement(
     `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${inputName}">
@@ -258,6 +280,8 @@ function createElementBasedOnType(inputName, inputDetails) {
       return createTextInputElement(inputName, inputDetails);
     case INPUT_TYPE.TOGGLE:
       return createToggleInputElement(inputName, inputDetails);
+    case INPUT_TYPE.SELECT:
+      return createSelectInputElement(inputName, inputDetails);
     default:
       return createSliderInputElement(inputName, inputDetails);
   }
@@ -354,14 +378,15 @@ function draw() {
   // theFool({centerX, centerY, theme, scaleOption: 1});
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
-  const {seed, cardValue, ...overrideParameters} = getOverrideKeyValuesObject();
+  const {seed, cardValue, cardSuit, ...overrideParameters} = getOverrideKeyValuesObject();
   noiseSeed(seed)
 
   const cardStats = createCard({ 
     value: cardValue,
-    suit: SUIT.SUN, 
+    suit: cardSuit, 
     description: '' 
   });
+
   const nodeParams = {
     theme,
     centerX,
@@ -395,6 +420,10 @@ function getInputValue(id, parse = parseFloat) {
 function getToggleInputValue(id) {
   let el = document.getElementById(id)
   return el.checked;
+}
+
+function getSelectInputValue(id) {
+  return getInputValue(id, (value) => value)
 }
 
 const parsePhraseAsInt = (s) => {

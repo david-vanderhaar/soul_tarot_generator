@@ -1,0 +1,108 @@
+/* select-input-field starting stylings ------------------------------*/
+.select-input-field {
+    font-family:
+      'Roboto','Helvetica','Arial',sans-serif;
+      position: relative;
+      width: 100px;
+  }
+  
+  .select-input-field__text {
+      position: relative;
+      font-family: inherit;
+      background-color: transparent;
+      width: 100px;
+      padding: 5px 0;
+      font-size: 16px;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0, 0.12);
+  }
+  
+  /* Remove focus */
+  .select-input-field__text:focus {
+      outline: none;
+      border-bottom: 1px solid rgba(0,0,0, 0);
+  }
+  
+      /* Use custom arrow */
+  .select-input-field .select-input-field__text {
+      appearance: none;
+      -webkit-appearance:none
+  }
+  
+  .select-input-field:after {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      /* Styling the down arrow */
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 0, 0, 0.12);
+      pointer-events: none;
+  }
+  
+  
+  /* LABEL ======================================= */
+  .select-input-field__label {
+      color: rgba(0,0,0, 0.26);
+      font-size: 12px;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 0;
+      top: 10px;
+      transition: 0.2s ease all;
+  }
+  
+  /* active state */
+  .select-input-field__text:focus ~ .select-input-field__label, .select-input-field__text:valid ~ .select-input-field__label {
+      color: #673ab7;
+      top: -15px;
+      transition: 0.2s ease all;
+      font-size: 12px;
+  }
+  
+  /* BOTTOM BARS ================================= */
+  .select-input-field__bar {
+      position: relative;
+      display: block;
+      width: 100px;
+  }
+  
+  .select-input-field__bar:before, .select-input-field__bar:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #673ab7;
+      transition: 0.2s ease all;
+  }
+  
+  .select-input-field__bar:before {
+      left: 50%;
+  }
+  
+  .select-input-field__bar:after {
+      right: 50%;
+  }
+  
+  /* active state */
+  .select-input-field__text:focus ~ .select-input-field__bar:before, .select-input-field__text:focus ~ .select-input-field__bar:after {
+      width: 50%;
+  }
+  
+  /* HIGHLIGHTER ================================== */
+  .select-input-field__highlight {
+      position: absolute;
+      height: 60%;
+      width: 100px;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5;
+  }

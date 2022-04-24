@@ -66,3 +66,7 @@ canvas {
 #advanced-input-container {
   max-width: 400px;
 }
+
+.select-input-field {
+  display: inline-block;
+}

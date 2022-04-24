@@ -7,7 +7,7 @@ const SUIT = {
   GOURD: 'gourd',
   PIPE: 'pipe',
   SICKLE: 'sickle',
-  GINKO: 'ginko,'
+  GINKO: 'ginko'
 };
 
 const CURVE_TYPES = {
