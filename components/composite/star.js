@@ -32,7 +32,7 @@ const createStar = ({
       let endX = x - (diameterEnd / 2) * sin(segmentStart);
       let endY = y + (diameterEnd / 2) * cos(segmentStart);
       primary_points.push({x: endX, y: endY})
-      // line(startX, startY, endX, endY);
+      line(startX, startY, endX, endY);
     }
     // secondary guidlines
     const rotation = radians(180 / points);
@@ -43,15 +43,17 @@ const createStar = ({
       let endX = x - (diameterEnd / 2) * sin(segmentStart);
       let endY = y + (diameterEnd / 2) * cos(segmentStart);
       secondary_points.push({x: startX, y: startY})
-      // dashed({startX, startY, endX, endY, lineCount: 5});
+      dashed({startX, startY, endX, endY, lineCount: 5});
     }
     // star lines
     primary_points.forEach((point, index) => {
       line(point.x, point.y, secondary_points[index].x, secondary_points[index].y)
+      // curved({startX: point.x, startY: point.y, endX: secondary_points[index].x, endY: secondary_points[index].y, curveStrength: 100, curveType: CURVE_TYPES.E})
       const looped_index = index === 0 ? points - 1 : index - 1
       line(point.x, point.y, secondary_points[looped_index].x, secondary_points[looped_index].y)
+      // curved({startX: point.x, startY: point.y, endX: secondary_points[looped_index].x, endY: secondary_points[looped_index].y, curveStrength: 100, curveType: CURVE_TYPES.W})
     })
     // circle(x, y, diameterStart);
-    // circle(x, y, layerDiameter);
+    // circle(x, y, diameterEnd / 2);
   }
 }

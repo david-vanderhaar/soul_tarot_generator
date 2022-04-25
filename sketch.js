@@ -12,6 +12,15 @@ const HEIGHT = WIDTH * 1.39;
 const diameter = 50;
 const diameterStep = 10;
 
+function getCreateNodeBySuit(suit) {
+  const createFuncsBySuit = {
+    SUN: createSun,
+    STAR: createStar,
+  }
+
+  return createFuncsBySuit[suit];
+}
+
 function setup() {
   addPresetButtons();
   addControlInputs();
@@ -70,7 +79,8 @@ function draw() {
     slotCount: cardStats.slotCount,
     slotPadding: 100,
     nodeParams,
-    createNode: createStar,
+    createNode: getCreateNodeBySuit(cardSuit),
+    // createNode: createStar,
     // createNode: createSun,
   })
 }
