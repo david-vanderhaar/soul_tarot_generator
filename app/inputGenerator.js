@@ -109,7 +109,7 @@ const PARAMETER_OVERRIDES = {
         getValue: () => getInputValue('layerMultiplier'),
     },
     detailModifier: {
-        inputContainerId: 'advanced-input-container',
+        inputContainerId: 'primary-input-container',
         displayName: 'detail modifier',
         initialValue: URL_PARAMETERS.detailModifier || .2,
         inputType: INPUT_TYPE.SLIDER,
@@ -119,7 +119,7 @@ const PARAMETER_OVERRIDES = {
         getValue: () => getInputValue('detailModifier'),
     },
     noiseShift: {
-        inputContainerId: 'advanced-input-container',
+        inputContainerId: 'primary-input-container',
         displayName: 'noise shift',
         initialValue: URL_PARAMETERS.noiseShift || 0,
         inputType: INPUT_TYPE.SLIDER,
@@ -142,17 +142,50 @@ const PARAMETER_OVERRIDES = {
     lineCount: {
         inputContainerId: 'advanced-input-container',
         displayName: 'line count',
-        suits: [SUIT.SUN],
+        suits: [SUIT.SUN, SUIT.STAR],
         initialValue: URL_PARAMETERS.lineCount || 5,
         inputType: INPUT_TYPE.INTEGER,
-        min: 1,
+        min: 0,
         max: 1000,
         step: 1,
         getValue: () => getInputValue('lineCount'),
     },
+    starPoints: {
+        inputContainerId: 'advanced-input-container',
+        displayName: 'points on star',
+        suits: [SUIT.STAR],
+        initialValue: URL_PARAMETERS.starPoints || 6,
+        inputType: INPUT_TYPE.INTEGER,
+        min: 1,
+        max: 100,
+        step: 1,
+        getValue: () => getInputValue('starPoints'),
+    },
+    innerDiameter: {
+        inputContainerId: 'advanced-input-container',
+        displayName: 'inner diameter',
+        suits: [SUIT.STAR],
+        initialValue: URL_PARAMETERS.innerDiameter || 10,
+        inputType: INPUT_TYPE.INTEGER,
+        min: 0,
+        max: 100,
+        step: 1,
+        getValue: () => getInputValue('innerDiameter'),
+    },
+    innerDiameterMultipler: {
+        inputContainerId: 'advanced-input-container',
+        displayName: 'inner diameter multiplier',
+        suits: [SUIT.STAR],
+        initialValue: URL_PARAMETERS.innerDiameterMultipler || 0,
+        inputType: INPUT_TYPE.INTEGER,
+        min: 0,
+        max: 100,
+        step: 1,
+        getValue: () => getInputValue('innerDiameterMultipler'),
+    },
     lineGap: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'lineGap',
+        displayName: 'line gap',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.lineGap || 0,
         inputType: INPUT_TYPE.INTEGER,
@@ -163,7 +196,7 @@ const PARAMETER_OVERRIDES = {
     },
     segmentCount: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'segmentCount',
+        displayName: 'segment count',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.segmentCount || 20,
         inputType: INPUT_TYPE.INTEGER,
@@ -174,7 +207,7 @@ const PARAMETER_OVERRIDES = {
     },
     segmentGutter: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'segmentGutter',
+        displayName: 'segment gutter',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.segmentGutter || 4,
         inputType: INPUT_TYPE.INTEGER,
@@ -185,7 +218,7 @@ const PARAMETER_OVERRIDES = {
     },
     burstCount: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'burstCount',
+        displayName: 'burst count',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.burstCount || 5,
         inputType: INPUT_TYPE.INTEGER,
@@ -196,7 +229,7 @@ const PARAMETER_OVERRIDES = {
     },
     stippleCount: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'stippleCount',
+        displayName: 'stipple count',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.stippleCount || 10,
         inputType: INPUT_TYPE.INTEGER,
@@ -207,7 +240,7 @@ const PARAMETER_OVERRIDES = {
     },
     stippleSize: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'stippleSize',
+        displayName: 'stipple size',
         suits: [SUIT.SUN],
         initialValue: URL_PARAMETERS.stippleSize || 10,
         inputType: INPUT_TYPE.INTEGER,
@@ -218,8 +251,8 @@ const PARAMETER_OVERRIDES = {
     },
     rotationStep: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'rotationStep',
-        suits: [SUIT.SUN],
+        displayName: 'rotation step',
+        suits: [SUIT.SUN, SUIT.STAR],
         initialValue: URL_PARAMETERS.rotationStep || 0,
         inputType: INPUT_TYPE.INTEGER,
         min: 0,
@@ -229,8 +262,8 @@ const PARAMETER_OVERRIDES = {
     },
     rotationOffset: {
         inputContainerId: 'advanced-input-container',
-        displayName: 'rotationOffset',
-        suits: [SUIT.SUN],
+        displayName: 'rotation offset',
+        suits: [SUIT.SUN, SUIT.STAR],
         initialValue: URL_PARAMETERS.rotationOffset || 0,
         inputType: INPUT_TYPE.INTEGER,
         min: 0,
@@ -254,7 +287,7 @@ function getOverrideKeyValuesObject() {
 
 function createSelectInputElement(inputName, inputDetails) {
     return htmlToElement(
-        `<div class="select-input-field">
+        `<div id="${createInputContainerId(inputName)}" class="select-input-field">
         <select class="select-input-field__text" id="${inputName}" onchange="regenerate()">
           ${inputDetails.values.map((name) => `<option value="${name}" ${inputDetails.initialValue === name ? 'selected' : ''}>${SUIT[name]}</option>`)}
         </select>
@@ -267,7 +300,7 @@ function createSelectInputElement(inputName, inputDetails) {
 
 function createToggleInputElement(inputName, inputDetails) {
     return htmlToElement(
-        `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${inputName}">
+        `<label id="${createInputContainerId(inputName)}" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${inputName}">
         <input type="checkbox" id="${inputName}" onchange="regenerate()" class="mdl-checkbox__input" ${inputDetails.initialValue && 'checked'}>
         <span class="mdl-checkbox__label">${inputDetails.displayName}</span>
       </label>`
@@ -276,7 +309,7 @@ function createToggleInputElement(inputName, inputDetails) {
 
 function createTextInputElement(inputName, inputDetails) {
     return htmlToElement(
-        `<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        `<div id="${createInputContainerId(inputName)}" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" onchange="regenerate()" id="${inputName}" type="text" value="${inputDetails.initialValue}">
         <label class="mdl-textfield__label" for="${inputName}">${inputDetails.displayName}</label>
         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -286,7 +319,7 @@ function createTextInputElement(inputName, inputDetails) {
 
 function createIntegerInputElement(inputName, inputDetails) {
     return htmlToElement(
-        `<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        `<div id="${createInputContainerId(inputName)}" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" onchange="regenerate()" id="${inputName}" type="number" min="${inputDetails.min}" max="${inputDetails.max}" value="${inputDetails.initialValue}">
         <label class="mdl-textfield__label" for="${inputName}">${inputDetails.displayName}</label>
         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -296,7 +329,7 @@ function createIntegerInputElement(inputName, inputDetails) {
 
 function createSliderInputElement(inputName, inputDetails) {
     return htmlToElement(
-        `<div class="control-slider">
+        `<div id="${createInputContainerId(inputName)}" class="control-slider">
         <div>${inputDetails.displayName}</div>
         <input class="mdl-slider mdl-js-slider" onchange="regenerate()" id="${inputName}" type="range" value="${inputDetails.initialValue}" min="${inputDetails.min}" max="${inputDetails.max}" step="${inputDetails.step}">
       </div>`
@@ -328,4 +361,25 @@ function createParameterOverrideInput(inputName, inputDetails) {
 
 function addControlInputs() {
     Object.entries(PARAMETER_OVERRIDES).forEach(([key, details]) => createParameterOverrideInput(key, details))
+}
+
+function showInput(inputId) {
+    const element = document.getElementById(`${createInputContainerId(inputId)}`);
+    element.style.display = 'inline-block'
+}
+
+function hideInput(inputId) {
+    const element = document.getElementById(`${createInputContainerId(inputId)}`);
+    element.style.display = 'none'
+}
+
+function createInputContainerId(id) { return `${id}-container` }
+
+function showHideControlInputsBySuit(suit) {
+    Object.entries(PARAMETER_OVERRIDES).forEach(([key, details]) => {
+        if (!Object.keys(details).includes('suits')) return
+        
+        if (details.suits.includes(suit)) showInput(key);
+        else hideInput(key)
+    })
 }

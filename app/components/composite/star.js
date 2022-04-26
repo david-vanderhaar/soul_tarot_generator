@@ -7,6 +7,10 @@ const createStar = ({
   detailModifier = 0,
   theme,
   noiseShift = 0,
+  lineCount = 1,
+  innerDiameter = 10,
+  innerDiameterMultipler = 0,
+  starPoints = 3,
   rotationStep,
   rotationOffset,
 }) => {
@@ -14,11 +18,12 @@ const createStar = ({
   for (let i = 0; i < layerCount; i++) {
     const noiseValue = noise(noiseShift);
     // const diameterStart = i * layerDiameter || 10;
-    const diameterStart = 10;
+    // const diameterStart = 10;
+    const diameterStart = (i * innerDiameterMultipler) + innerDiameter;
     const diameterEnd = ((i + 1) * layerDiameter);
     // const minDiameter = 100;
     // const points = random(1, 20);
-    const points = 6;
+    const points = starPoints;
     const angleStep = radians(360 / points);
     
     // primary guidlines
@@ -43,7 +48,7 @@ const createStar = ({
       let endX = x - (diameterEnd / 2) * sin(segmentStart);
       let endY = y + (diameterEnd / 2) * cos(segmentStart);
       secondary_points.push({x: startX, y: startY})
-      dashed({startX, startY, endX, endY, lineCount: 5});
+      dashed({startX, startY, endX, endY, lineCount});
     }
     // star lines
     primary_points.forEach((point, index) => {

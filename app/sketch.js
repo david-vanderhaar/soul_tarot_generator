@@ -24,6 +24,7 @@ function getCreateNodeBySuit(suit) {
 function setup() {
   addPresetButtons();
   addControlInputs();
+
   CANVAS_RENDERER = P2D;
   // CANVAS_RENDERER = SVG;
   const canvas = createCanvas(WIDTH, HEIGHT, CANVAS_RENDERER);
@@ -56,6 +57,7 @@ function draw() {
   // oneOfSun({centerX, centerY, theme, scaleOption: 1});
   // threeOfSun({centerX, centerY, theme});
   const {seed, cardValue, cardSuit, ...overrideParameters} = getOverrideKeyValuesObject();
+  showHideControlInputsBySuit(SUIT[cardSuit])
   noiseSeed(seed)
 
   const cardStats = createCard({ 
