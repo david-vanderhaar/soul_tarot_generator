@@ -14,22 +14,23 @@ const createStar = ({
   rotationStep,
   rotationOffset,
 }) => {
+  const noiseValue = noise(noiseShift);
   let layerDiameter = (maxDiameter / layerCount);
+  innerDiameter = 0 + round(noiseValue * 50) //currently overriding to keep star-like shape
+  const curved_lines = false
   for (let i = 0; i < layerCount; i++) {
-    const noiseValue = noise(noiseShift);
-    // const diameterStart = i * layerDiameter || 10;
-    // const diameterStart = 10;
+    const layerNoiseValue = noise(noiseShift * i);
+    const burstEffect = round(layerNoiseValue);
+    const centerLine = round(layerNoiseValue * 2);
     const diameterStart = (i * innerDiameterMultipler) + innerDiameter;
     const diameterEnd = ((i + 1) * layerDiameter);
-    // const minDiameter = 100;
-    // const points = random(1, 20);
     const points = starPoints;
     const angleStep = radians(360 / points);
     
     // primary guidlines
     const primary_points = []
     const secondary_points = []
-    const layerRotation = (i * rotationStep) + rotationOffset;
+    const layerRotation = (i * radians(rotationStep)) + rotationOffset;
     for (let j = 0; j < points; j++) {
       const segmentStart = (j * angleStep) + layerRotation
       let startX = x - (diameterStart / 2) * sin(segmentStart);
@@ -37,7 +38,7 @@ const createStar = ({
       let endX = x - (diameterEnd / 2) * sin(segmentStart);
       let endY = y + (diameterEnd / 2) * cos(segmentStart);
       primary_points.push({x: endX, y: endY})
-      line(startX, startY, endX, endY);
+      centerLine && line(startX, startY, endX, endY);
     }
     // secondary guidlines
     const rotation = radians(180 / points);
@@ -48,15 +49,17 @@ const createStar = ({
       let endX = x - (diameterEnd / 2) * sin(segmentStart);
       let endY = y + (diameterEnd / 2) * cos(segmentStart);
       secondary_points.push({x: startX, y: startY})
-      dashed({startX, startY, endX, endY, lineCount});
+      burstEffect && dashed({startX, startY, endX, endY, lineCount});
     }
     // star lines
     primary_points.forEach((point, index) => {
-      line(point.x, point.y, secondary_points[index].x, secondary_points[index].y)
-      // curved({startX: point.x, startY: point.y, endX: secondary_points[index].x, endY: secondary_points[index].y, curveStrength: 100, curveType: CURVE_TYPES.E})
-      const looped_index = index === 0 ? points - 1 : index - 1
-      line(point.x, point.y, secondary_points[looped_index].x, secondary_points[looped_index].y)
-      // curved({startX: point.x, startY: point.y, endX: secondary_points[looped_index].x, endY: secondary_points[looped_index].y, curveStrength: 100, curveType: CURVE_TYPES.W})
+      !curved_lines
+      ? line(point.x, point.y, secondary_points[index].x, secondary_points[index].y)
+      : curved({startX: point.x, startY: point.y, endX: secondary_points[index].x, endY: secondary_points[index].y, curveStrength: 20, curveType: CURVE_TYPES.E})
+      const previous_index = index === 0 ? points - 1 : index - 1
+      !curved_lines
+      ? line(point.x, point.y, secondary_points[previous_index].x, secondary_points[previous_index].y)
+      : curved({startX: point.x, startY: point.y, endX: secondary_points[previous_index].x, endY: secondary_points[previous_index].y, curveStrength: 20, curveType: CURVE_TYPES.W})
     })
     // circle(x, y, diameterStart);
     // circle(x, y, diameterEnd / 2);
