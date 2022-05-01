@@ -3,9 +3,6 @@ const createStar = ({
   y,
   maxDiameter,
   layerCount = 1,
-  layerMultiplier = 1,
-  detailModifier = 0,
-  theme,
   noiseShift = 0,
   lineCount = 1,
   innerDiameter = 10,
@@ -16,11 +13,11 @@ const createStar = ({
 }) => {
   const noiseValue = noise(noiseShift);
   let layerDiameter = (maxDiameter / layerCount);
-  innerDiameter = 0 + round(noiseValue * 50) //currently overriding to keep star-like shape
+  // innerDiameter = 0 + round(noiseValue * 50) //currently overriding to keep star-like shape
   const curved_lines = false
   for (let i = 0; i < layerCount; i++) {
     const layerNoiseValue = noise(noiseShift * i);
-    const burstEffect = round(layerNoiseValue);
+    const burstEffect = round(layerNoiseValue + 0.2);
     const centerLine = round(layerNoiseValue * 2);
     const diameterStart = (i * innerDiameterMultipler) + innerDiameter;
     const diameterEnd = ((i + 1) * layerDiameter);

@@ -165,10 +165,10 @@ const PARAMETER_OVERRIDES = {
     innerDiameter: {
         inputContainerId: 'advanced-input-container',
         displayName: 'inner diameter',
-        suits: [],
+        suits: [SUIT.STAR],
         initialValue: URL_PARAMETERS.innerDiameter || 10,
         inputType: INPUT_TYPE.INTEGER,
-        min: 0,
+        min: 10,
         max: 100,
         step: 1,
         getValue: () => getInputValue('innerDiameter'),
@@ -176,7 +176,7 @@ const PARAMETER_OVERRIDES = {
     innerDiameterMultipler: {
         inputContainerId: 'advanced-input-container',
         displayName: 'inner diameter multiplier',
-        suits: [],
+        suits: [SUIT.STAR],
         initialValue: URL_PARAMETERS.innerDiameterMultipler || 0,
         inputType: INPUT_TYPE.INTEGER,
         min: 0,

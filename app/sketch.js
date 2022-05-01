@@ -81,9 +81,10 @@ function draw() {
     slotCount: cardStats.slotCount,
     slotPadding: 100,
     nodeParams,
-    createNode: getCreateNodeBySuit(cardSuit),
+    // createNode: getCreateNodeBySuit(cardSuit),
     // createNode: createStar,
     // createNode: createSun,
+    createNode: createMoon,
   })
 }
 
