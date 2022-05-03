@@ -1,13 +1,13 @@
 const SUIT = {
   SUN: 'sun',
-  MOON: 'moon',
   STAR: 'star',
-  COMET: 'comet',
-  CHIEF: 'chief',
-  GOURD: 'gourd',
-  PIPE: 'pipe',
-  SICKLE: 'sickle',
-  GINKO: 'ginko'
+  // MOON: 'moon',
+  // COMET: 'comet',
+  // CHIEF: 'chief',
+  // GOURD: 'gourd',
+  // PIPE: 'pipe',
+  // SICKLE: 'sickle',
+  // GINKO: 'ginko'
 };
 
 const CURVE_TYPES = {

@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "live-server"
+    "start": "live-server",
+    "build": "bestzip builds/itchio.zip index.html assets/* app/*"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "devDependencies": {
+    "bestzip": "2.2.1"
+  }
 }
