@@ -1,38 +1,38 @@
 <!DOCTYPE html><html lang="en"><head>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel&amp;family=Montserrat:wght@100&amp;display=swap" rel="stylesheet">
-    <script src="assets/p5.js"></script>
-    <script src="assets/p5.svg.js"></script>
-    <script src="assets/p5.dom.min.js"></script>
-    <script src="assets/material.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&amp;family=Montserrat:wght@100&amp;display=swap" rel="stylesheet">
+    <script src="./assets/p5.js"></script>
+    <script src="./assets/p5.svg.js"></script>
+    <script src="./assets/p5.dom.min.js"></script>
+    <script src="./assets/material.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="assets/material.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/select.css">
-    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <link rel="stylesheet" href="./assets/material.min.css">
+    <link rel="stylesheet" href="./assets/select.css">
+    <link rel="stylesheet" href="./assets/style.css">
             
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 
-    <script src="app/components/constants.js"></script>
-    <script src="app/components/card.js"></script>
-    <script src="app/components/cardGenerator.js"></script>
-    <script src="app/components/radial/beam.js"></script>
-    <script src="app/components/radial/stipple.js"></script>
-    <script src="app/components/radial/ripple.js"></script>
-    <script src="app/components/radial/burst.js"></script>
-    <script src="app/components/radial/burstCurve.js"></script>
-    <script src="app/components/radial/disc.js"></script>
-    <script src="app/components/linear/dashed.js"></script>
-    <script src="app/components/linear/curved.js"></script>
-    <script src="app/components/static/oneOfSun.js"></script>
-    <script src="app/components/static/threeOfSun.js"></script>
-    <script src="app/components/static/theFool.js"></script>
-    <script src="app/components/composite/sun.js"></script>
-    <script src="app/components/composite/star.js"></script>
-    <script src="app/components/utility/crosshairs.js"></script>
-    <script src="app/inputGenerator.js"></script>
-    <script src="app/sketch.js"></script>
-    <script src="app/urlHelper.js"></script>
+    <script src="./app/components/constants.js"></script>
+    <script src="./app/components/card.js"></script>
+    <script src="./app/components/cardGenerator.js"></script>
+    <script src="./app/components/radial/beam.js"></script>
+    <script src="./app/components/radial/stipple.js"></script>
+    <script src="./app/components/radial/ripple.js"></script>
+    <script src="./app/components/radial/burst.js"></script>
+    <script src="./app/components/radial/burstCurve.js"></script>
+    <script src="./app/components/radial/disc.js"></script>
+    <script src="./app/components/linear/dashed.js"></script>
+    <script src="./app/components/linear/curved.js"></script>
+    <script src="./app/components/static/oneOfSun.js"></script>
+    <script src="./app/components/static/threeOfSun.js"></script>
+    <script src="./app/components/static/theFool.js"></script>
+    <script src="./app/components/composite/sun.js"></script>
+    <script src="./app/components/composite/star.js"></script>
+    <script src="./app/components/utility/crosshairs.js"></script>
+    <script src="./app/inputGenerator.js"></script>
+    <script src="./app/sketch.js"></script>
+    <script src="./app/urlHelper.js"></script>
   </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -45,12 +45,12 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation">
-            <button onclick="saveImage()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Export</button>
+            <button disabled onclick="saveImage()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Export</button>
             <button onclick="createAndCopyURL()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Share</button>
           </nav>
         </div>
       </header>
-      <div class="mdl-layout__drawer">
+      <!-- <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Soul Tarot Gen</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="">Link</a>
@@ -58,7 +58,7 @@
           <a class="mdl-navigation__link" href="">Link</a>
           <a class="mdl-navigation__link" href="">Link</a>
         </nav>
-      </div>
+      </div> -->
       <!-- end Navbar -->
       <main class="mdl-layout__content">
         <div class="page-content">

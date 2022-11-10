@@ -21,12 +21,13 @@ function sendAlert(message) {
 }
 
 function copyTextToClipboard(text) {
-    if (!navigator.clipboard) return fallbackCopyTextToClipboard(text);
-    navigator.clipboard.writeText(text).then(function () {
-        sendAlert('share link was copied to clipboard.');
-    }, function () {
-        sendAlert('unable to copy share link to clipboard.');
-    });
+    return fallbackCopyTextToClipboard(text);
+    // if (!navigator.clipboard) return fallbackCopyTextToClipboard(text);
+    // navigator.clipboard.writeText(text).then(function () {
+    //     sendAlert('share link was copied to clipboard.');
+    // }, function () {
+    //     sendAlert('unable to copy share link to clipboard.');
+    // });
 }
 
 
@@ -48,7 +49,7 @@ function fallbackCopyTextToClipboard(text) {
         var msg = successful ? 'successfully' : 'unsuccessfully';
         sendAlert(`share link was ${msg} to clipboard.`);
     } catch (err) {
-        sendAlert('Oops, unable to copy the share link', err);
+        sendAlert('Unable to copy the share link', err);
     }
 
     document.body.removeChild(textArea);

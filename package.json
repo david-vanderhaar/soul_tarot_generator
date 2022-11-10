@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "live-server",
-    "build": "bestzip builds/itchio.zip index.html assets/* app/*"
+    "build": "bestzip builds/itch-bundle.zip index.html assets/* app/*"
   },
   "author": "",
   "license": "ISC",
